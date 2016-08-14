@@ -1,0 +1,12 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Einleitung}{3}
+\contentsline {subsection}{\numberline {1.1}Bodenatmung als geophysikalischer Prozess}{3}
+\contentsline {subsection}{\numberline {1.2}Statistische Grundlagen}{3}
+\contentsline {subsubsection}{\numberline {1.2.1}Korrelation}{3}
+\contentsline {subsubsection}{\numberline {1.2.2}F-Statistik}{4}
+\contentsline {section}{\numberline {2}Erstellung eines Modells zur Bodenatmung}{5}
+\contentsline {subsection}{\numberline {2.1}Korrelationsanalyse}{5}
+\contentsline {subsection}{\numberline {2.2}Transformationen}{5}
+\contentsline {subsection}{\numberline {2.3}Variabelnselektion}{5}
+\contentsline {subsection}{\numberline {2.4}Ergebnis}{5}
+\contentsline {subsection}{\numberline {2.5}Umsetzung mit R}{5}

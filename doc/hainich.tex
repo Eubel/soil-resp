@@ -1,0 +1,64 @@
+\documentclass[11pt]{scrartcl}
+
+\usepackage[utf8]{inputenc}	% Umlaute
+\usepackage[ngerman]{babel}	% Deutscher Text
+\usepackage{chemmacros}		% Chem. Symbole
+\usepackage{cite}			% Bibtex
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amsmath}		% more math
+\usepackage{graphicx}		%figures
+\usepackage{verbatim}		%listings
+\usepackage{listings}
+
+\renewcommand{\bf}[1]{\textbf{#1}}
+\renewcommand{\it}[1]{\textit{#1}}
+
+%listings
+\lstset{
+	language=R,
+	basicstyle=\small\ttfamily,
+	tabsize=4,
+	breaklines=true,
+	numbers=left,
+	extendedchars=true, %utf-8	
+	numberstyle=\footnotesize\color[RGB]{128,128,128},
+	commentstyle=\color[RGB]{27,116,41},
+	stringstyle=\color[RGB]{186,58,38},
+	keywordstyle=\color[RGB]{33,73,114}
+}
+
+
+\title{Bodenatmung im Nationalpark Hainich}
+\subtitle{Erstellung eines statistischen Modells und Diskussion von Fehlentscheidungen im Rahmen der Variabelnselektion}
+\author{Sichtling C \and Loos D \and Jajali R}
+
+\begin{document}
+	\maketitle
+	
+	\centering{\Large{
+				PROJEKTARBEIT\\
+				im Rahmen des Moduls \it{Statistische Verfahren}\\
+				an der Friedrich-Schiller-Universität Jena
+			}}
+	
+	\begin{abstract}
+		Die Freisetzung von \ch{CO2} in die Atmosphäre ist ein fundamentaler Bestandteil von Modellen zur Berechnung klimatischer Phänomene.
+		Die \it{Bodenatmung} ist hierbei der dominierende Prozess auf Landgebieten.
+		Zur Modellierung dieses Prozesses wurde im Nationalpark Hainich Messdaten im Einfluss von ca. 30 Variabeln erhoben.
+		Daraus wird nun ein statistisches Modell erstellt.
+		Bei der Variabelnselektion können statistische Unsicherheiten zu Fehlern führen.
+		Dies wird im folgendem diskutiert.
+	\end{abstract}
+	\tableofcontents
+	\newpage
+	
+	\begin{flushleft}
+		\input{sec/1-intro.tex}
+		\newpage
+		\input{sec/2-model.tex}
+		\newpage
+	\end{flushleft}
+	
+	\bibliography{hainich}
+	\bibliographystyle{abbrv}
+\end{document}

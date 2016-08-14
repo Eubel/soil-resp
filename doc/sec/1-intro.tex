@@ -1,0 +1,44 @@
+\section{Einleitung}
+
+\subsection{Bodenatmung als geophysikalischer Prozess}
+\cite{foo}
+
+\subsection{Statistische Grundlagen}
+
+\subsubsection{Korrelation}
+Unter \it{Korrelation} versteht man die „Wechselbeziehung“ zweier Zufallsgrößen.
+Dieser Zusammenhang kann entweder \it{linear} (Korrelationskoeffizient nach Pearson) oder lediglich \it{monoton} sein.
+Ist eine Korrelation nicht gegeben, so scheint die Zufallsgröße als ungeeigneter Prädiktor für die jeweils andere Variabel.
+Kausale Beziehungen erfordern Korrelation.
+\\
+Der \it{lineare, empirische Korrelationskoeffizient nach Person} zwischen den Variabeln $X$ und $Y$ wird definiert durch:
+\begin{equation}
+	Kor_e(x,y) := \varrho_e(x,y) := r_{xy} := \frac{
+		\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y)
+	}{
+	\sqrt{
+		\sum_{i=1}^n(x_i-\bar x)^2\cdot
+		\sum_{i=1}^n(y_i-\bar y)^2
+	}
+	}
+\end{equation}
+mit den empirischen Mittelwert $\bar x$ aus $n$ Messwerten von $X$.
+Möchte man lediglich ein \it{lineares} Modell erstellen, so ist die Pearson-Korrelation zu wählen.
+\\
+Eine allgemeinere Beschreibung der Korrelation ist die nach \it{Spearsman}, welche auf Ranglisten beruht:\\
+\begin{align}
+	r_s &= \frac{\sum_{i}(rg(x_i)-\overline{rg}_x)(rg(y_i)-\overline{rg}_y)} {\sqrt{\sum_{i}(rg(x_i)-\overline{rg}_x) ^2}\sqrt{\sum_{i}(rg(y_i)-\overline{rg}_y)^2}}\\
+	&= \frac { \frac{1}{n} \sum_{i}(rg(x_{i})  rg(y_{i})) - \overline{rg_x rg_y}  }{s_{rg_x} s_{rg_y}} \\
+	&= \frac {{Cov}(rg_{x},rg_{y} )} { s_{rg_x} s_{rg_y} }
+\end{align}
+Somit lassen sich auch nicht-lineare Korrelationen in Datensätzen erkennen.
+Insbesondere im Betrachtung des exponentiellem Verhaltens in Abhängigkeit von der Temperatur ist diese Art der Korrelation wichtig.
+Zur Berechnung des Anteils an der \it{erklärten} Varianz in linearen Modellen allerdings kann diese Variante nicht verwendet werden.
+
+\subsubsection{F-Statistik}
+Im Rahmen der Variablenselektion bei der Erstellung des Modells wird immer wieder die Hypothese überprüft, ob ein erweitertes Modell \it{signifikant} besser ist:
+
+\begin{equation}
+	F=\frac{\frac{RSS_1-RSS_2}{p_2-p_1}}{\frac{RSS_2}{n-p_2}}
+\end{equation}
+mit den quadrierten Residuen $RSS$, den Anzahl an Features $p_i$ des ursprünglichen Modells $M_1$ und das um ein weiteres Feature erweiterte Modell $M_2$.
