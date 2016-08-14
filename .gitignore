@@ -1,3 +1,7 @@
+
+# Created by https://www.gitignore.io/api/latex,linux,r
+
+### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -19,6 +23,9 @@
 # *.eps
 # *.pdf
 
+## Generated if empty string is given at "Please type another file name for output:"
+.pdf
+
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
 *.bcf
@@ -31,6 +38,7 @@
 ## Build tool auxiliary files:
 *.fdb_latexmk
 *.synctex
+*.synctex(busy)
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
@@ -84,6 +92,10 @@ acs-*.bib
 # gnuplottex
 *-gnuplottex-*
 
+# gregoriotex
+*.gaux
+*.gtex
+
 # hyperref
 *.brf
 
@@ -128,6 +140,9 @@ _minted*
 *.sagetex.py
 *.sagetex.scmd
 
+# scrwfile
+*.wrt
+
 # sympy
 *.sout
 *.sympy
@@ -151,6 +166,9 @@ pythontex-files-*/
 
 # todonotes
 *.tdo
+
+# easy-todo
+*.lod
 
 # xindy
 *.xdy
@@ -178,3 +196,52 @@ TSWLatexianTemp*
 
 # KBibTeX
 *~[0-9]*
+
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+
+### R ###
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+
+# Example code in package build process
+*-Ex.R
+
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+
+# knitr and R markdown default cache directories
+/*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
