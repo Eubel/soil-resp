@@ -35,10 +35,13 @@ Somit lassen sich auch nicht-lineare Korrelationen in Datensätzen erkennen.
 Insbesondere im Betrachtung des exponentiellem Verhaltens in Abhängigkeit von der Temperatur ist diese Art der Korrelation wichtig.
 Zur Berechnung des Anteils an der \it{erklärten} Varianz in linearen Modellen allerdings kann diese Variante nicht verwendet werden.
 
-\subsubsection{F-Statistik}
-Im Rahmen der Variablenselektion bei der Erstellung des Modells wird immer wieder die Hypothese überprüft, ob ein erweitertes Modell \it{signifikant} besser ist:
-
+\subsubsection{F-Test in geschachtelten Modellen}
+Der \it{F-Test} überprüft, ob zwei verschachtelte Modelle mit den Featuremengen $M_1 \subseteq M_2$ sich signifikant unterscheiden.
+Hierbei wird auf den gleichen Testdaten evaluiert.
+Die Statistik ist F-verteilt und abhängig von den Freiheitsgraden (Anzahl der Features im Modell).
+Es wird die Nullhypothese überprüft, ob die hinzugefügten Features des erweiterten Modells statistisch irrelevant sind ($\beta_i = 0$).
+Die F-Statistik wird gebildet durch:
 \begin{equation}
 	F=\frac{\frac{RSS_1-RSS_2}{p_2-p_1}}{\frac{RSS_2}{n-p_2}}
 \end{equation}
-mit den quadrierten Residuen $RSS$, den Anzahl an Features $p_i$ des ursprünglichen Modells $M_1$ und das um ein weiteres Feature erweiterte Modell $M_2$.
+mit den quadrierten Residuen $RSS$, den Anzahl an Freiheitsgraden $p_i$ in den Modellen $M_1$ und das um  weitere Feature erweiterte Modell $M_2$.

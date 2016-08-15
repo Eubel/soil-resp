@@ -1,5 +1,3 @@
-
-setwd("/home/daniel/Schreibtisch/Statistik Projekt")
 hainich <- read.csv("hainich.csv", sep = ";", dec = ".")
 
 ## corelation
@@ -43,7 +41,7 @@ spse3hat <- spseHat(hainich.lm3)
 # test one model against the other
 # warning: both models have to be fitted with the same training data!
 # density of F depends on degree of freedom!
-res = anova(hainich.lm1,hainich.lm2)
+anova(hainich.lm1,hainich.lm2)
 
 
 ## cross validation
@@ -114,8 +112,62 @@ hainich.tooBigModel <- lm(soil.res ~ 1 * lmoi * temp.15 *
                             temp.0 * soiln0 * soilc0,
                           data = hainich.train)
 hainich.tooBigModel.spsehat <- spseHat(hainich.tooBigModel)
-
+#function step uses AIC instead of F!
 nextStep <- step(hainich.realModel, 
      scope = list(lower=hainich.realModel, upper=hainich.tooBigModel),
      direction = "forward")
 nextStep$anova$"Resid. Df" # residual change in F value
+
+
+
+## SIMULATION
+
+#subsetting data
+subsetSize <- 10 # number of samples taken from original dataset
+subset <- hainich[sample(nrow(hainich), subsetSize), ]
+
+#make pseudo observations
+pseudo.soilResp <- predict(hainich.realModel, newdata = subset, type = "response")
+
+
+## Simulation F values
+realModelStr <- "soil.res ~ 1 + lmoi + temp.15 + temp.0 + soiln0 + soilc0"
+# next model will have another feature in addition
+excludeVarsRegEx <- "(soil.res|lmoi|temp.15|temp.0|soiln0|soilc0)"
+nextVars <- names(hainich)[
+  ! grepl(excludeVarsRegEx,names(hainich))]
+
+#create result data frame
+simulRes <- NULL
+for(x in nextVars){
+  #create formula for next Model by adding current variable
+  nxtModelStr <- paste(realModelStr, "+", x)
+  nxtModel <- lm(nxtModelStr, data = hainich.train)
+  #evaluate nextModel
+  an <- anova(hainich.realModel, nxtModel) 
+  f <- an$F[2]
+  p <- an$`Pr(>F)`[2]
+  spse <- spseHat(nxtModel)
+  simulRes <- rbind(simulRes, c(spse,x,f,p)) 
+}
+simulRes <- data.frame(spse=as.double(simulRes[,1]), 
+                       addFeature=simulRes[,2] , F=as.double(simulRes[,3]),
+                       p=as.double(simulRes[,4]), stringsAsFactors = T)
+
+## evaluation
+
+#which model with additional feature was the real winner (SPSE)?
+idMinErr <-  which(simulRes$spse == min(simulRes$spse))
+#which model won but was not the best one (F)?
+idMaxF <- which(simulRes$F == max(simulRes$F))
+
+xs <- seq(0,7,by = 0.05)
+freal <- density(simulRes$F)
+## WARNING: I have no idea how to calc the degree of freedoms!
+## maybe an$Res.Df? need df1 and df2
+fNominal <- df(xs,24,23)
+plot(freal, xlim=c(min(xs),max(xs)), ylim=c(0,1),
+     xlab = "F-Value",
+     main="Kernel distribution of F Values \n from models with different extra feature")
+points(xs, fNominal, col="red", type="lines") #F distribution
+legend("topright",c("Data","Calculated"), lwd=2, col=c("black","red"), bty = "n")
