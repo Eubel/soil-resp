@@ -12,8 +12,8 @@ Bilder, die in der Endfassung auftauchen, werden zusätzlich nach
 - Habt ihr Änderungen/New-Stuff, stellt mir bitte einen *pull-Request*
 
 # Ordner
-|Name   | Beschreibung      |
------------------------------
+|Name   | Beschreibung         |
+|-------|----------------------|
 |doc    | *Dokumentation*. Unser LaTeX-Code |
 |fig    | *Figures*. Bilder und Diagramme. |
 |lit    | *Literature*. Literatur zum Thema. |
