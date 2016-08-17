@@ -171,5 +171,3 @@ plot(freal, xlim=c(min(xs),max(xs)), ylim=c(0,1),
      main="Kernel distribution of F Values \n from models with different extra feature")
 points(xs, fNominal, col="red", type="lines") #F distribution
 legend("topright",c("Data","Calculated"), lwd=2, col=c("black","red"), bty = "n")
-
-##TO-DO: multiple random training for simulation and F-Value statistics
