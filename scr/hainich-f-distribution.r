@@ -38,7 +38,6 @@ getFtable <- function(train, test){
 
 crossValPart <- function(data, fold){
   set.seed(1337)
-  fold <- 4 # x means training size is 1-1/x, test size = 1/x
   index <- rep(1:fold, length.out=dim(hainich)[2])
   index <- sample(index) # mixing
   
