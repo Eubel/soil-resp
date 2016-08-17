@@ -22,4 +22,4 @@ Bilder, die in der Endfassung auftauchen, werden zusätzlich nach
 
 # Pfade
 - PDF der Dokumentation: https://github.com/Eubel/soil-resp/blob/master/doc/hainich.pdf
-- R-Skript: https://github.com/Eubel/soil-resp/blob/master/hainich.r
+- R-Skripte: https://github.com/Eubel/soil-resp/blob/master/scr/
