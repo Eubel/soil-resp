@@ -145,13 +145,13 @@ for(x in nextVars){
   nxtModel <- lm(nxtModelStr, data = hainich.train)
   #evaluate nextModel
   an <- anova(hainich.realModel, nxtModel) 
-  f <- an$F[2]
-  p <- an$`Pr(>F)`[2]
+  f <- an$F[2] # F-value
+  p <- an$`Pr(>F)`[2] # p-value
   spse <- spseHat(nxtModel)
   simulRes <- rbind(simulRes, c(spse,x,f,p)) 
 }
 simulRes <- data.frame(spse=as.double(simulRes[,1]), 
-                       addFeature=simulRes[,2] , F=as.double(simulRes[,3]),
+                       addedFeature=simulRes[,2] , F=as.double(simulRes[,3]),
                        p=as.double(simulRes[,4]), stringsAsFactors = T)
 
 ## evaluation
@@ -161,7 +161,7 @@ idMinErr <-  which(simulRes$spse == min(simulRes$spse))
 #which model won but was not the best one (F)?
 idMaxF <- which(simulRes$F == max(simulRes$F))
 
-xs <- seq(0,7,by = 0.05)
+xs <- seq(0,7,by = 0.01)
 freal <- density(simulRes$F)
 ## WARNING: I have no idea how to calc the degree of freedoms!
 ## maybe an$Res.Df? need df1 and df2
