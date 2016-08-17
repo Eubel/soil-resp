@@ -63,7 +63,7 @@ simulRes <- crossValPart(hainich,fold)
 ## evaluation
 for(i in seq(fold)){
   #select run
-  r <- simulRes[simulRes$run == 1,]
+  r <- simulRes[simulRes$run == i,]
   #which model with additional feature was the real winner (SPSE)?
   idMinErr <-  which(r$spse == min(r$spse))
   #which model won but was not the best one (F)?
@@ -84,3 +84,13 @@ plot(freal, xlim=c(min(xs),max(xs)), ylim=c(0,1),
      main="Kernel distribution of F Values \n from models with different extra feature")
 points(xs, fNominal, col="red", type="lines") #F distribution
 legend("topright",c("Data","Calculated"), lwd=2, col=c("black","red"), bty = "n")
+
+#values of F and spse in Run 1
+run1 <- simulRes[simulRes$run == 1,]
+run1 <- run1[with(run1, order(F, decreasing = T)), ] # order by F
+barplot(run1$F, names.arg = run1$addedFeature, ylim = c(0,6),
+        las=2, col="black", ylab = "F-Value")
+
+run1 <- run1[with(run1, order(spse)), ] # order by spse
+barplot(run1$spse, ylab = "Estimated SPSE", ylim = c(0,13),
+        names.arg = run1$addedFeature, las=2, col="black")
