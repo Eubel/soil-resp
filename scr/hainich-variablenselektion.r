@@ -9,8 +9,20 @@ hainich.pear.ordered <- hainich.pear[order(hainich.pear, decreasing = T)]
 barplot(hainich.pear.ordered, las = 2, ylim = c(0,0.5), col = "black",
         ylab = "Absolute Pearson Correlation", main = "Variables Correlated with Soil Respiration")
 
-# fig/scatterplot-pearson-top6.png
-pairs(~ lmoi + temp.15 + litdoc + litter.d  + smoi + rootdw0, data=hainich ,main="Simple Scatterplot Matrix")
+names(hainich.pear.ordered)
+# fig/scatterplot-pearson-top8.png
+pairs(~ lmoi + temp.15 + litdoc + litter.d  + smoi + rootdw0 + temp.0 + soiln0, data=hainich ,main="Simple Scatterplot Matrix")
+
+# Shapiro normalverteilt?
+hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
+hainich.shapiro.ordered <- hainich.shapiro[order(hainich.shapiro, decreasing = T)]
+barplot(hainich.shapiro.ordered, las = 2, ylim = c(0,1), col = "black",
+        ylab = "Shapiro Test p-value", main = "Variables")
+abline(h=0.05, col="red")
+names(hainich.shapiro.ordered)
+
+# fig/scatterplot-pearson-top8-normalverteilt.png
+pairs(~ lmoi + temp.15 + smoi + soiln0, data=hainich ,main="Simple Scatterplot Matrix")
 
 # sampling training data
 set.seed(1337)
@@ -24,20 +36,19 @@ null <- lm(soil.res ~ 1, data = hainich.train)
 # Top 15 Variablen
 #full <- lm(soil.res ~ 1 + lmoi + temp.15 + litdoc + litter.d + smoi + rootdw0 + temp.0 + soiln0 + sno35 + soiln5 + rootc0 + rootdw5 + soilc0 + sdoc5 + soilc5, data = hainich.train)
 # Top 6 Variablen
-full <- lm(soil.res ~ 1 + lmoi + temp.15 + litdoc + litter.d + smoi + rootdw0, data = hainich.train)
+#full <- lm(soil.res ~ 1 + lmoi + temp.15 + litdoc + litter.d + smoi + rootdw0, data = hainich.train)
+# Top 8 nur normalverteilte Variablen = 4
+full <- lm(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0, data=hainich.train)
 
 step(null, scope=list(lower=null, upper=full), direction="forward")
 
 #info: http://www.stat.columbia.edu/~martin/W2024/R10.pdf
 library("leaps")
-hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + litdoc + litter.d + smoi + rootdw0,
+hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
                              data=hainich.train, method = "forward")
 
 summary(hainich.leaps)
 par(mfrow=c(1,2))
 plot(hainich.leaps, scale="bic")
 plot(hainich.leaps, scale="adjr2")
-summary(hainich.leaps1)$bic
-
-plot(hainich.leaps1, scale="bic")
-plot(hainich.leaps1, scale="adjr2")
+summary(hainich.leaps)$bic
