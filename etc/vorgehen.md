@@ -10,7 +10,7 @@ Wir gehen wie folgt vor:
 `hainich.lm3 <- lm(soil.res ~ 1 + lmoi + temp.15 + soiln0, data=hainich.train)` # top 3 by correlation 
 
 - **Modellqualität.** Genommen wird das *kleinste* Modell, welches einen $SPSE < 0.05 * E(soil.res)$ hat. Hierbei wird das Modell auf *Trainingsdaten* ($\approx 80\%$) der Daten gelernt und auf Testdatensatz miteks $SPSE$ evaluiert. Diese Untermengen des Datensatzen bilden eine *Partition*.
-- Um Overfitting entgegenzutreten: **Variablenselektion.** Mit Hilfe des R-Pakets `leaps` wird das Modell mit dem geringsten $BIC$ ausgewählt, welches das Kriterium der Modellqualiät erfüllt.
+- Um Overfitting entgegenzutreten: **Variablenselektion.** Mit Hilfe des R-Pakets `leaps` wird das Modell mit dem geringsten $BIC$ ausgewählt, welches das Kriterium der Modellqualiät erfüllt. Dieses Modell besitzt 4 Variablen, davon korreliert `rootc0` zu stark mit `smoi` und wird nicht mit ausgewählt.
 
 ## Simulation
 - Der Datensatz ist zu klein, sodass es keinen Sinn ergibt, alle Features ins Modell aufzunehmen. *Sparse linear models* sind gefragt.
