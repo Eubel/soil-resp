@@ -3,13 +3,14 @@ Wir gehen wie folgt vor:
 
 ## Erstellung des Modells
 - Der Datensatz enthält sehr viele Features im Vergleich zur Anzahl an Messungen. Der Suchraum der Variabelnselektion wäre viel zu groß.
-- **Vorauswahl.** Es werden nur stark korrelierende Variablen in Betracht gezogen
-- Einflüsse wie z.B. die der *Temperatur* sind nicht linear.
-**Link-Funktion.** Ins lineare Modell wird z.B. die Transformierte  $log(Temp)$ genommen.
-- **Kopplungen.** Zur Vereinfachung werden lediglich die Kopplungen zwischen $Temp_i$ und $Temp_j$ sowie zwischen $Temp$ und $moisture$ betrachtet.
+- **Vorauswahl.** Es werden nur stark korrelierende (Pearson) und normalverteilte (Shapiro-Wilk) Variablen in Betracht gezogen
+- Shapiro-Wilk: p-Value > 0.05 dann normalverteilt
+- von den Top 8 korrelierenden Variablen sind nur 4 normalverteilt
+
+`hainich.lm3 <- lm(soil.res ~ 1 + lmoi + temp.15 + soiln0, data=hainich.train)` # top 3 by correlation 
+
 - **Modellqualität.** Genommen wird das *kleinste* Modell, welches einen $SPSE < 0.05 * E(soil.res)$ hat. Hierbei wird das Modell auf *Trainingsdaten* ($\approx 80\%$) der Daten gelernt und auf Testdatensatz miteks $SPSE$ evaluiert. Diese Untermengen des Datensatzen bilden eine *Partition*.
-- Um Overfitting entgegenzutreten:
-**Variabelnselektion.** Mit Hilfe des R-Pakets `leaps` wird das Modell mit dem geringsten $BIC$ ausgewählt, welches das Kriterium der Modellqualiät erfüllt.
+- Um Overfitting entgegenzutreten: **Variabelnselektion.** Mit Hilfe des R-Pakets `leaps` wird das Modell mit dem geringsten $BIC$ ausgewählt, welches das Kriterium der Modellqualiät erfüllt.
 
 ## Simulation
 - Der Datensatz ist zu klein, sodass es keinen Sinn ergibt, alle Features ins Modell aufzunehmen. *Sparse linear models* sind gefragt.
