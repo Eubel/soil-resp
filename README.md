@@ -23,7 +23,3 @@ Bilder, die in der Endfassung auftauchen, werden zusätzlich nach
 # Pfade
 - PDF der Dokumentation: https://github.com/Eubel/soil-resp/blob/master/doc/hainich.pdf
 - R-Skripte: https://github.com/Eubel/soil-resp/blob/master/scr/
- 
-TODO:
-
-- aic/bic mit 3 variablen model
