@@ -6,10 +6,12 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
 - Bodenatmung wichtigster Prozess auf Landgebiet
 - 30% der weltweiten Landfläche ist bewaldet
 - Nationalpark Hainich als lokales Beispiel für Wälder in der gemäßigten Klimazone
+
 ### Der Datensatz
 - 38 Messwerte, 33 Variabeln
 - Viel zu wenig Messwerte, um alle Variabeln statistisch begründen zu können -> Reduktion der Featuremenge notwendig
 - Viele statistische Abhänigkeiten verringern außerdem den statistischen Informaionsgehalt ($Temp_5$ bringt nur marginalen Mehrwert, wenn man $Temp_{10}$ bereits gemessen hat)
+
 ### Vorgehen
 - Variabelnselektion
   - Unkorrelierte Variabeln aussortieren
@@ -19,6 +21,7 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
     - Wahl der 5 best korrelierten Variabeln
     - Erstellung eines linearen Modells
     - Partitionierung: 80% Training / 20% Test
+
 ### Statistische Grundlagen
 - Fehler
   - SPSE
@@ -36,6 +39,7 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
   - Test auf signifikantem Unterschied zweier Modelle mit verschachtelten Featuremengen
   - Wird der Fehler $RSS$ wirklich so stark reduziert, dass es sich lohnt, die Freiheitsgrade des Modells zu erhöhen?
   - anova
+
 ## Erstellung eines statistischen Modells
 - Daten: hainich.csv, A. Soe, MPI Biogeochemie
 - Programmierumgebung: R
@@ -46,6 +50,7 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
   - Sampling der Daten auf test/Train
   - R-Paket `leaps` und Funktion `regsubsets`
 - Training des linearen Modells mit `lm(...)`
+
 ## Simulation und Fehlerabschätzung
 - Beim F-Test wird die Hypothese überprüft, ob eine zusätzliche Featurevariabel den Fehler $RSS$ signifikant im Bezug auf die zusätzlichen Freiheitsgrade verbessert
 - Das kann zu Fehlentscheidungen führen, da maximale $F$-Werte nicht zwangsläufig zu minimalen direkten Fehlern $SPSE$ führen
