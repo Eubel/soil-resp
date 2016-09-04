@@ -37,7 +37,6 @@ getFtable <- function(train, test){
 }
 
 crossValPart <- function(data, fold){
-  set.seed(1337)
   index <- rep(1:fold, length.out=dim(hainich)[2])
   index <- sample(index) # mixing
   
@@ -55,6 +54,7 @@ crossValPart <- function(data, fold){
 }
 
 hainich <- read.csv("hainich.csv", sep = ";", dec = ".")
+set.seed(1337)
 #result by cross validation (random part against rest validation)
 fold <- 4
 simulRes <- crossValPart(hainich,fold)
