@@ -8,5 +8,5 @@ plot(hainich$temp.0,hainich$soil.res,
      ylab = "Soil Respiration", xlab = "Soil Temperature")
 points(hainich$temp.5,hainich$soil.res, col = "red")
 points(hainich$temp.10,hainich$soil.res, col = "blue")
-legend("topright",c("0cm","5cm","10cm"), lwd=2, 
+legend("topright",c("0cm","5cm","10cm"), lwd=2,
        col=c("black","red","blue"), bty = "n")

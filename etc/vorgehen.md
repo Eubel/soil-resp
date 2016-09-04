@@ -2,18 +2,19 @@
 Wir gehen wie folgt vor:
 
 ## Erstellung des Modells
-- Der Datensatz enthält sehr viele Features im Vergleich zur Anzahl an Messungen. Der Suchraum der Variabelnselektion wäre viel zu groß.
-- **Vorauswahl.** Es werden nur stark korrelierende Variablen in Betracht gezogen
-- Einflüsse wie z.B. die der *Temperatur* sind nicht linear.
-**Link-Funktion.** Ins lineare Modell wird z.B. die Transformierte  $log(Temp)$ genommen.
-- **Kopplungen.** Zur Vereinfachung werden lediglich die Kopplungen zwischen $Temp_i$ und $Temp_j$ sowie zwischen $Temp$ und $moisture$ betrachtet.
+- Der Datensatz enthält sehr viele Features im Vergleich zur Anzahl an Messungen. Der Suchraum der Variablenselektion wäre viel zu groß.
+- **Vorauswahl.** Es werden nur stark korrelierende (Pearson) und normalverteilte (Shapiro-Wilk) Variablen in Betracht gezogen
+- Shapiro-Wilk: p-Value > 0.05 dann normalverteilt
+- von den Top 8 korrelierenden Variablen sind nur 4 normalverteilt
+
+`hainich.lm3 <- lm(soil.res ~ 1 + lmoi + temp.15 + soiln0, data=hainich.train)` # top 3 by correlation 
+
 - **Modellqualität.** Genommen wird das *kleinste* Modell, welches einen $SPSE < 0.05 * E(soil.res)$ hat. Hierbei wird das Modell auf *Trainingsdaten* ($\approx 80\%$) der Daten gelernt und auf Testdatensatz miteks $SPSE$ evaluiert. Diese Untermengen des Datensatzen bilden eine *Partition*.
-- Um Overfitting entgegenzutreten:
-**Variabelnselektion.** Mit Hilfe des R-Pakets `leaps` wird das Modell mit dem geringsten $BIC$ ausgewählt, welches das Kriterium der Modellqualiät erfüllt.
+- Um Overfitting entgegenzutreten: **Variablenselektion.** Mit Hilfe des R-Pakets `leaps` wird das Modell mit dem geringsten $BIC$ ausgewählt, welches das Kriterium der Modellqualiät erfüllt. Dieses Modell besitzt 4 Variablen, davon korreliert `rootc0` zu stark mit `smoi` und wird nicht mit ausgewählt.
 
 ## Simulation
 - Der Datensatz ist zu klein, sodass es keinen Sinn ergibt, alle Features ins Modell aufzunehmen. *Sparse linear models* sind gefragt.
-- viele Variabeln des Datensatzes sind *statistisch abhänig*. Dadurch sind die Maxima der F-Statistiken nicht mehr F-verteilt. So kann der Fehler entstehen, dass eine Variabel *fälschlicherweise* doch zum Modell hinzugenommen wird, obwohl es objektive Kriteria gegenüber ($SPSE,BIC,...$) das Modell *nicht* besser amcht
+- viele Variablen des Datensatzes sind *statistisch abhänig*. Dadurch sind die Maxima der F-Statistiken nicht mehr F-verteilt. So kann der Fehler entstehen, dass eine Variable *fälschlicherweise* doch zum Modell hinzugenommen wird, obwohl es objektive Kriteria gegenüber ($SPSE,BIC,...$) das Modell *nicht* besser macht
 - **Simulation.**
   - Angenommen, Modell $$E(soil.res) = \beta_0 + smoi * \beta_1+ temp10 * \beta_2$$ sei gegeben. Dieses "wahre "Modell ist das Ergebnis des vorherigen Prozesses.
   - Nun wird im Rahmen der *forward selection* geprüft, ob es Sinn ergibt, die zusätzliche Variable $rootdw$ hinzuzunehmen.
