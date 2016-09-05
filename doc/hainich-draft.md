@@ -75,7 +75,7 @@ hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
 
 ### Variablenselektion mit "forward selection" (fig/variablenselektion-bic-adjr2.png)
 
-- Sampling der Daten auf test/Train
+- Sampling der Daten auf test/train
 - R-Paket `leaps` und Funktion `regsubsets`
 - Ergebnis: `soil.res ~ 1 + lmoi + temp.15 + smoi`
 ~~~
@@ -116,6 +116,8 @@ hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
 
 - Wie gut lässt sich ein Modell mit so wenig Daten bauen?
 - Wie oft trifft der F-Test Fehlentscheidungen?
+
+## Bilder
 
 ![fig/correlation-pearson.png](fig/correlation-pearson.png)
 
