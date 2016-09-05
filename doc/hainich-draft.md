@@ -118,3 +118,12 @@ hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
 - Wie oft trifft der F-Test Fehlentscheidungen?
 
 ![fig/correlation-pearson.png](fig/correlation-pearson.png)
+
+![fig/scatterplot-pearson-top8.png](fig/scatterplot-pearson-top8.png)
+
+![fig/normalverteilung-shapiro.png](fig/normalverteilung-shapiro.png)
+
+![fig/scatterplot-pearson-normalverteilt.png](fig/scatterplot-pearson-normalverteilt.png)
+
+![fig/variablenselektion-bic-adjr2.png](fig/variablenselektion-bic-adjr2.png)
+
