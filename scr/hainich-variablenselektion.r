@@ -1,5 +1,6 @@
 # nicht vergessen: setwd!
 # setwd("/home/daniel/Schreibtisch/Statistik Projekt")
+# setwd("~/Projects/GithubProjects/soil-resp/src")
 
 hainich <- read.csv("hainich.csv", sep = ";", dec = ".")
 
@@ -19,10 +20,17 @@ hainich.shapiro.ordered <- hainich.shapiro[order(hainich.shapiro, decreasing = T
 barplot(hainich.shapiro.ordered, las = 2, ylim = c(0,1), col = "black",
         ylab = "Shapiro Test p-value", main = "Variables")
 abline(h=0.05, col="red")
-names(hainich.shapiro.ordered)
+
+hainich.normal <- hainich[names(hainich.shapiro.ordered[hainich.shapiro.ordered > 0.05])]
 
 # fig/scatterplot-pearson-top8-normalverteilt.png
 pairs(~ lmoi + temp.15 + smoi + soiln0, data=hainich ,main="Simple Scatterplot Matrix")
+pairs(~ lmoi + log(temp.15) + smoi + soiln0, data=hainich ,main="Simple Scatterplot Matrix")
+
+shapiro.test(hainich$soiln0)$p.value
+shapiro.test(log(hainich$soiln0))$p.value
+
+pairs(~ soil.res + exp(temp.15) + exp(temp.10) + exp(temp.5) + exp(temp.0), data=hainich[2:38,])
 
 # sampling training data
 set.seed(1337)
