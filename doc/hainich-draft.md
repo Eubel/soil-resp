@@ -44,10 +44,15 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
 ## Erstellung eines statistischen Modells
 - Daten: hainich.csv, A. Soe, MPI Biogeochemie
 - Programmierumgebung: R
-- Variabelnselektion
-  - `hainich-variablenselektion.r`
-  - Pearson-Korrelation
-  - Shapiro-Filter
+- Variabelnselektion `hainich-variablenselektion.r`
+
+### Pearson-Korrelation (fig/correlation-pearson.png)
+  - *lmoi* und *temp.15* korrelieren sehr stark
+  - die besten 8 sind (*lmoi*, *temp.15*, *litdoc*, *litter.d*, *smoi*, *rootdw0*, *temp.0*, *soiln0*)
+  - *soiln0* korreliert mit 0.28408188
+### Shapiro-Filter (fig/normalverteilung-shapiro.png)
+  - von den 8 Varaiablen die am besten mit *soli.resp* korrelieren sind 4 normalverteilt (p-Value > 0.05)
+  - übrig bleiben *lmoi*, *temp.15*, *smoi*, *soiln0*)
   - Sampling der Daten auf test/Train
   - R-Paket `leaps` und Funktion `regsubsets`
 - Training des linearen Modells mit `lm(...)`
@@ -79,3 +84,5 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
 ## Zusammenfassung
 - Wie gut lässt sich ein Modell mit so wenig Daten bauen?
 - Wie oft trifft der F-Test Fehlentscheidungen?
+
+!(fig/correlation-pearson.png)[fig/correlation-pearson.png]
