@@ -33,6 +33,7 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
   - Notwendig für Kausalität
   - Maß für Anteil der erklärten Varianz am Modell
   - Quadrierter Korrelationskoeffizient als Bestimmtheitsmaß $R^2$ in linearen Modellen (Anteil erklärter Varianz des Modells)
+  - Pearson vs. Spearman
 - Shapiro-Test
   - Test auf Normalverteilung
 - F-Test in verschachtelten Modellen

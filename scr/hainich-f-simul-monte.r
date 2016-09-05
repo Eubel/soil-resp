@@ -1,7 +1,3 @@
-#
-# F Distribution
-#
-
 spseHat <- function(model, test){
   return(sum((test$soil.res - predict(model, newdata=test))^2))
 }
@@ -17,20 +13,24 @@ getFtable <- function(train, test){
   
   #create result data frame
   simulRes <- NULL
+  spseRealModel <- spseHat(realModel, test) # spse of full model
   for(x in nextVars){
     #create formula for next Model by adding current variable
     nxtModelStr <- paste(realModelStr, "+", x)
     nxtModel <- lm(nxtModelStr, data = train)
+    
     #evaluate nextModel
     an <- anova(realModel, nxtModel) 
     f <- an$F[2] # F-value
     p <- an$`Pr(>F)`[2] # p-value
-    spse <- spseHat(nxtModel, test)
-    simulRes <- rbind(simulRes, c(spse,x,f,p)) 
+    spse <- spseHat(nxtModel, test) # error in new model
+    deltaSpse <- abs(spse) - abs(spseRealModel) # gained error diff
+    simulRes <- rbind(simulRes, c(spse,x,f,p,deltaSpse)) 
   }
   simulRes <- data.frame(spse=as.double(simulRes[,1]), 
                          addedFeature=simulRes[,2] , F=as.double(simulRes[,3]),
-                         p=as.double(simulRes[,4]), stringsAsFactors = T)
+                         p=as.double(simulRes[,4]), deltaSpse=as.double(simulRes[,5]),
+                         stringsAsFactors = T)
   
   return(simulRes)
 }
@@ -48,6 +48,7 @@ monte <- function(data, n, nTrain){
     
     res <- getFtable(train,test)
     res$run <- rep(i, dim(res)[1])
+    #concat new results
     simulRes <- rbind(simulRes,res)
   }
   
