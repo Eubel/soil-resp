@@ -1,6 +1,3 @@
-# nicht vergessen: setwd("<dein/pfad>")
-# setwd("/home/daniel/Schreibtisch/Statistik Projekt")
-
 hainich <- read.csv("hainich.csv", sep = ";", dec = ".")
 
 # spearman (monoton)

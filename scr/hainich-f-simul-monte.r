@@ -4,10 +4,10 @@ spseHat <- function(model, test){
 
 getFtable <- function(train, test){
   ## Simulation F values
-  realModelStr <- "soil.res ~ 1 + lmoi + temp.15 + temp.0 + soiln0 + soilc0"
+  realModelStr <- "soil.res ~ 1 + lmoi + temp.15 + smoi"
   realModel <- lm(realModelStr, data = train)
   # next model will have another feature in addition
-  excludeVarsRegEx <- "(soil.res|lmoi|temp.15|temp.0|soiln0|soilc0)"
+  excludeVarsRegEx <- "(soil.res|lmoi|temp.15|smoi)"
   nextVars <- names(hainich)[
     ! grepl(excludeVarsRegEx,names(hainich))]
   
