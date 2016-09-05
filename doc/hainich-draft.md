@@ -85,14 +85,13 @@ hainich.pear <- abs(cor(hainich))["soil.res",-1]
 
 - von den 8 Varaiablen die am besten mit *soli.resp* korrelieren sind 4 normalverteilt (p-Value > 0.05)
 - übrig bleiben *lmoi*, *temp.15*, *smoi*, *soiln0*
+~~~
+hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
+~~~
 
 ### Sonstiges
 - Stat. Abhänigkeit zw *lmoi* und *smoi* vermutet, aber keine Korrelation zwischen *lmoi* und *smoi* vorhanden (R-Wert?). Deswegen beide ins Modell genommen
 - *litter.d* in Top 3 nach BIC, aber nicht normalverteilt. Deswegen nicht hinzugenommen
-
-~~~
-hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
-~~~
 
 ### Variablenselektion mit "forward selection" (fig/variablenselektion-bic-adjr2.png)
 
