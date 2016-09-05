@@ -40,6 +40,8 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
   - Maß für Anteil der erklärten Varianz am Modell
   - Quadrierter Korrelationskoeffizient als Bestimmtheitsmaß $R^2$ in linearen Modellen (Anteil erklärter Varianz des Modells)
   - Pearson vs. Spearman
+  - Person: linear, erfordert Normalverteilung
+  - Spearman: monoton, nicht zwangsweise linear
 - Shapiro-Test
   - Test auf Normalverteilung
 - F-Test in verschachtelten Modellen
@@ -53,21 +55,40 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
 - Programmierumgebung: R
 - Variabelnselektion `hainich-variablenselektion.r`
 
-### Pearson-Korrelation (fig/correlation-pearson.png)
+### Korrelation
+- Relevante Features müssen mit der Bodenatmung korrelieren
+- Unkorrelierte Features sind nur Rauschen und werden aussortiert
+- Lineare Modelle erfordern lineare Korrelation
+
+#### Spearman-Korelation
+- monotone, nicht zwangsläufig lineare, Korrelation
+- Features, die Spearman aber nicht Person korreliert sind, benötigen eine Linkfunktion (Sie sind relevant und müssen linearisiert werden)
+
+#### Pearson-Korrelation (fig/correlation-pearson.png)
 
 - *lmoi* und *temp.15* korrelieren sehr stark
 - die besten 8 sind (*lmoi*, *temp.15*, *litdoc*, *litter.d*, *smoi*, *rootdw0*, *temp.0*, *soiln0*)
 - die untere Schranke ist *soiln0* mit 0.28408188
-
 ~~~
 hainich.pear <- abs(cor(hainich))["soil.res",-1]
 ~~~
 
+### Linkfunktionen
+- Stark Spearman korrelierte Variabeln benötigen eine Linkfunktion zur Linearisierung
+- Bsp: pH ist etwas Spearman aber sehr wenig Pearson korreliert, aufgrund der log. Definition des pH-Wertes. Hier wäre Linkfunktion nötig.
+- Paper von A. Soe und Regel von Arrhenius schlagen log-Linkfunktion für Temperatur vor
+- Abb zeigt: Bei aktueller Datenlage kein logarithmischer Zusammenhang erkennbar
+- Außerdem: $Temp15$ ist auch Pearson koreliert
+- Deswegen: Keine Linkfunktion angewandt da unnötig (keine Evidenz)
+
 ### Shapiro-Filter (fig/normalverteilung-shapiro.png)
 
 - von den 8 Varaiablen die am besten mit *soli.resp* korrelieren sind 4 normalverteilt (p-Value > 0.05)
-- übrig bleiben *lmoi*, *temp.15*, *smoi*, *soiln0*)
-- vermutet, aber keine Korrelation zwischen *lmoi* und *smoi* vorhanden
+- übrig bleiben *lmoi*, *temp.15*, *smoi*, *soiln0*
+
+### Sonstiges
+- Stat. Abhänigkeit zw *lmoi* und *smoi* vermutet, aber keine Korrelation zwischen *lmoi* und *smoi* vorhanden (R-Wert?). Deswegen beide ins Modell genommen
+- *litter.d* in Top 3 nach BIC, aber nicht normalverteilt. Deswegen nicht hinzugenommen
 
 ~~~
 hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
@@ -78,6 +99,7 @@ hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
 - Sampling der Daten auf test/train
 - R-Paket `leaps` und Funktion `regsubsets`
 - Ergebnis: `soil.res ~ 1 + lmoi + temp.15 + smoi`
+- Grundlage ist BIC. Hinzufügen einer weiteren Featurevariabel führte nur zu schlechteren BIC Werten
 ~~~
 library("leaps")
 hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
@@ -128,4 +150,3 @@ hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
 ![fig/scatterplot-pearson-normalverteilt.png](fig/scatterplot-pearson-normalverteilt.png)
 
 ![fig/variablenselektion-bic-adjr2.png](fig/variablenselektion-bic-adjr2.png)
-
