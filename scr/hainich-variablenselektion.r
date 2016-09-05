@@ -1,6 +1,6 @@
 # nicht vergessen: setwd!
 # setwd("/home/daniel/Schreibtisch/Statistik Projekt")
-# setwd("~/Projects/GithubProjects/soil-resp/src")
+# setwd("~/Projects/GithubProjects/soil-resp/scr")
 
 hainich <- read.csv("hainich.csv", sep = ";", dec = ".")
 
@@ -9,6 +9,7 @@ hainich.pear <- abs(cor(hainich))["soil.res",-1]
 hainich.pear.ordered <- hainich.pear[order(hainich.pear, decreasing = T)]
 barplot(hainich.pear.ordered, las = 2, ylim = c(0,0.5), col = "black",
         ylab = "Absolute Pearson Correlation", main = "Variables Correlated with Soil Respiration")
+# png(file="path.png",width=12,height=8)
 
 names(hainich.pear.ordered)
 # fig/scatterplot-pearson-top8.png
