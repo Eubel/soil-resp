@@ -57,13 +57,21 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
 
 - *lmoi* und *temp.15* korrelieren sehr stark
 - die besten 8 sind (*lmoi*, *temp.15*, *litdoc*, *litter.d*, *smoi*, *rootdw0*, *temp.0*, *soiln0*)
-- *soiln0* korreliert mit 0.28408188
+- die untere Schranke ist *soiln0* mit 0.28408188
+
+~~~
+hainich.pear <- abs(cor(hainich))["soil.res",-1]
+~~~
 
 ### Shapiro-Filter (fig/normalverteilung-shapiro.png)
 
 - von den 8 Varaiablen die am besten mit *soli.resp* korrelieren sind 4 normalverteilt (p-Value > 0.05)
 - übrig bleiben *lmoi*, *temp.15*, *smoi*, *soiln0*)
 - vermutet, aber keine Korrelation zwischen *lmoi* und *smoi* vorhanden
+
+~~~
+hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
+~~~
 
 ### Variablenselektion mit "forward selection" (fig/variablenselektion-bic-adjr2.png)
 
