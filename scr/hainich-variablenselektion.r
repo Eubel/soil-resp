@@ -9,7 +9,7 @@ hainich.pear <- abs(cor(hainich))["soil.res",-1]
 hainich.pear.ordered <- hainich.pear[order(hainich.pear, decreasing = T)]
 png(file="../doc/fig/correlation-pearson.png",width=800,height=360)
 barplot(hainich.pear.ordered, las = 2, ylim = c(0,0.5), col = "black",
-        ylab = "Absolute Pearson Korrelation", main = "Variables Correlated with Soil Respiration")
+        ylab = "Absolute Pearson Korrelation", main = "Korrelation der Variablen mit Soil Respiration")
 dev.off()
 
 names(hainich.pear.ordered)
@@ -28,6 +28,8 @@ abline(h=0.05, col="red")
 dev.off()
 
 hainich.normal <- hainich[names(hainich.shapiro.ordered[hainich.shapiro.ordered > 0.05])]
+
+
 
 # fig/scatterplot-pearson-top8-normalverteilt.png
 png(file="../doc/fig/scatterplot-pearson-normalverteilt.png",width=800,height=800)
