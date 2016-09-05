@@ -24,7 +24,7 @@ getFtable <- function(train, test){
     f <- an$F[2] # F-value
     p <- an$`Pr(>F)`[2] # p-value
     spse <- spseHat(nxtModel, test) # error in new model
-    deltaSpse <- abs(spse) - abs(spseRealModel) # gained error diff
+    deltaSpse <- spse - spseRealModel # gained error diff
     simulRes <- rbind(simulRes, c(spse,x,f,p,deltaSpse)) 
   }
   simulRes <- data.frame(spse=as.double(simulRes[,1]), 
@@ -58,7 +58,7 @@ monte <- function(data, n, nTrain){
 set.seed(1337)
 hainich <- read.csv("hainich.csv", sep = ";", dec = ".")
 n <- 100 # number of monte carlo simulations
-nTrain <- 30 # number of training data points
+nTrain <- 25 # number of training data points
 simulRes <- monte(hainich,n,nTrain)
 
 

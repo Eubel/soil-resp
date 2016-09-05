@@ -25,7 +25,7 @@ getFtable <- function(train, test){
     f <- an$F[2] # F-value
     p <- an$`Pr(>F)`[2] # p-value
     spse <- spseHat(nxtModel, test) # error in new model
-    deltaSpse <- abs(spse) - abs(spseRealModel) # gained error diff
+    deltaSpse <- spse - spseRealModel # gained error diff
     simulRes <- rbind(simulRes, c(spse,x,f,p,deltaSpse)) 
   }
   simulRes <- data.frame(spse=as.double(simulRes[,1]), 
@@ -85,7 +85,7 @@ plot(freal, xlim=c(min(xs),max(xs)), ylim=c(0,1),
 points(xs, fNominal, col="red", type="lines") #F distribution
 legend("topright",c("Data","Calculated"), lwd=2, col=c("black","red"), bty = "n")
 
-#values of F and spse in Run 1
+#values of F and spse in run 1
 run1 <- simulRes[simulRes$run == 1,]
 run1 <- run1[with(run1, order(F, decreasing = T)), ] # order by F
 barplot(run1$F, names.arg = run1$addedFeature, ylim = c(0,6),
