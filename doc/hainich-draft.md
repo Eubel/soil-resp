@@ -69,7 +69,7 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
 
 - Sampling der Daten auf test/Train
 - R-Paket `leaps` und Funktion `regsubsets`
-- Ergebnis: $soil.res ~ 1 + lmoi + temp.15 + smoi$ 
+- Ergebnis: `soil.res ~ 1 + lmoi + temp.15 + smoi`
 ~~~
 library("leaps")
 hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
@@ -109,4 +109,4 @@ hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
 - Wie gut lässt sich ein Modell mit so wenig Daten bauen?
 - Wie oft trifft der F-Test Fehlentscheidungen?
 
-!(fig/correlation-pearson.png)[fig/correlation-pearson.png]
+![fig/correlation-pearson.png](fig/correlation-pearson.png)
