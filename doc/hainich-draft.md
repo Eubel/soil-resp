@@ -1,6 +1,9 @@
 # Doc-Draft
+
 Unsere Arbeit - in Stichpunkten und Nussschalen
+
 ## Einleitung
+
 ### Bodenatmung als geophysikalischer Prozess
 - $CO_2$-Konzentration ist emminenter Bestandteil von Klimamodellen
 - Bodenatmung wichtigster Prozess auf Landgebiet
@@ -8,11 +11,13 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
 - Nationalpark Hainich als lokales Beispiel für Wälder in der gemäßigten Klimazone
 
 ### Der Datensatz
+
 - 38 Messwerte, 33 Variabeln
 - Viel zu wenig Messwerte, um alle Variabeln statistisch begründen zu können -> Reduktion der Featuremenge notwendig
 - Viele statistische Abhänigkeiten verringern außerdem den statistischen Informaionsgehalt ($Temp_5$ bringt nur marginalen Mehrwert, wenn man $Temp_{10}$ bereits gemessen hat)
 
 ### Vorgehen
+
 - Variabelnselektion
   - Unkorrelierte Variabeln aussortieren
   - nicht normalverteilte Variabeln aussortieren (Verteilung ist Bedingung in vielen stat. Tests)
@@ -23,6 +28,7 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
     - Partitionierung: 80% Training / 20% Test
 
 ### Statistische Grundlagen
+
 - Fehler
   - SPSE
   - RSS
@@ -42,22 +48,38 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
   - anova
 
 ## Erstellung eines statistischen Modells
+
 - Daten: hainich.csv, A. Soe, MPI Biogeochemie
 - Programmierumgebung: R
 - Variabelnselektion `hainich-variablenselektion.r`
 
 ### Pearson-Korrelation (fig/correlation-pearson.png)
-  - *lmoi* und *temp.15* korrelieren sehr stark
-  - die besten 8 sind (*lmoi*, *temp.15*, *litdoc*, *litter.d*, *smoi*, *rootdw0*, *temp.0*, *soiln0*)
-  - *soiln0* korreliert mit 0.28408188
+
+- *lmoi* und *temp.15* korrelieren sehr stark
+- die besten 8 sind (*lmoi*, *temp.15*, *litdoc*, *litter.d*, *smoi*, *rootdw0*, *temp.0*, *soiln0*)
+- *soiln0* korreliert mit 0.28408188
+
 ### Shapiro-Filter (fig/normalverteilung-shapiro.png)
-  - von den 8 Varaiablen die am besten mit *soli.resp* korrelieren sind 4 normalverteilt (p-Value > 0.05)
-  - übrig bleiben *lmoi*, *temp.15*, *smoi*, *soiln0*)
-  - Sampling der Daten auf test/Train
-  - R-Paket `leaps` und Funktion `regsubsets`
-- Training des linearen Modells mit `lm(...)`
+
+- von den 8 Varaiablen die am besten mit *soli.resp* korrelieren sind 4 normalverteilt (p-Value > 0.05)
+- übrig bleiben *lmoi*, *temp.15*, *smoi*, *soiln0*)
+- vermutet, aber keine Korrelation zwischen *lmoi* und *smoi* vorhanden
+
+### Variablenselektion mit "forward selection" (fig/variablenselektion-bic-adjr2.png)
+
+- Sampling der Daten auf test/Train
+- R-Paket `leaps` und Funktion `regsubsets`
+- Ergebnis: $soil.res ~ 1 + lmoi + temp.15 + smoi$ 
+~~~
+library("leaps")
+hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
+                             data=hainich.train, method = "forward")
+~~~
+
+### Training des linearen Modells mit `lm(...)`
 
 ## Simulation und Fehlerabschätzung
+
 - Beim F-Test wird die Hypothese überprüft, ob eine zusätzliche Featurevariabel den Fehler $RSS$ signifikant im Bezug auf die zusätzlichen Freiheitsgrade verbessert
 - Das kann zu Fehlentscheidungen führen, da maximale $F$-Werte nicht zwangsläufig zu minimalen direkten Fehlern $SPSE$ führen
 - Das kann mehrere Gründe haben:
@@ -77,11 +99,13 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
   - Überprüfung mittels Kerneldichte: Sind die F-Werte auch f-verteilt?
   - Waren die Entscheidungen knapp?
 
-### Diskussion
+## Diskussion
+
 - Wir haben zur Simulation und zur Modellerstellung dieselben Daten evrwendxet. Das ist statistisch unsauber.
 - Um jeden Datenpunkt möglichst nur einmal zu verwednen, wurde Kreuzpartionierung angewandt. Monte-Carlo-Ansatz widerspricht diesem Aspekt. Er ist allerdings nötig, um die Wahrscheinlichkeit genauer abschätzen zu können. Sonst hätte man bei n-facher Kreuzpartionierung nur n Werte zur Bestimmung der Wahrscheinlichkeit
 
 ## Zusammenfassung
+
 - Wie gut lässt sich ein Modell mit so wenig Daten bauen?
 - Wie oft trifft der F-Test Fehlentscheidungen?
 
