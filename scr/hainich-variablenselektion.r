@@ -66,7 +66,7 @@ hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
                              data=hainich.train, method = "forward")
 
 summary(hainich.leaps)
-png("../doc/fig/variablenselektion-bic-adjr2", width = 400, height = 270)
+png("../doc/fig/variablenselektion-bic-adjr2.png", width = 400, height = 270)
 par(mfrow=c(1,2))
 plot(hainich.leaps, scale="bic")
 plot(hainich.leaps, scale="adjr2")
