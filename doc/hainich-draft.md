@@ -126,6 +126,7 @@ hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
 - Auswertung
   - Schätze Wahrscheinlichkeit zur Fehlentscheidung von $H_0$
   - Überprüfung mittels Kerneldichte: Sind die F-Werte auch f-verteilt?
+    - Unter der Nullhypothese (Erweitertes Modell ist nicht besser als das "wahre" Modell) ist die F-Statistik eine F-verteilte Zufallsvariabel. Die Dichtefunktion der Daten aus der Kreuzüberprüfung (approx. durch Kernel-Desity) ist nach dem Bild mitunter stark abweichend. Die Simulation möchte demnach das wahre Modell erweitern (Ho abgelehnt). Das führt zu Overfitting.
   - Waren die Entscheidungen knapp?
 
 ## Diskussion
