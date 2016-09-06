@@ -46,8 +46,8 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
   - Test auf Normalverteilung
 - F-Test in verschachtelten Modellen
   - Test auf signifikantem Unterschied zweier Modelle mit verschachtelten Featuremengen
-  - Wird der Fehler $RSS$ wirklich so stark reduziert, dass es sich lohnt, die Freiheitsgrade des Modells zu erhöhen?
-  - anova
+  - Wird der Fehler $RSS$ wirklich so stark reduziert, dass es sich lohnt, die Freiheitsgrade des Modells zu erhöhen (mehr Features)?
+  - Die R-Funktion `anova(model1,model2)` testet, ob zwei verschachtelte Modelle (Model 2 enthält alle Variabeln von Modell 1 + weitere), die auf den gleichen Trainingsdaten erstellt wurden, sich signifikant unterscheiden. Ist der p-Value (in R `F Pr(>F)` im anova-Table) kleiner $0.05%$ kann die Nullhypothese (Zusätzliche Features erklären die Varianz nicht besser als das ursprüngliche Modell) verworfen werden. Das erweiterte Modell ist somit signifikant besser.
 
 ## Erstellung eines statistischen Modells
 
