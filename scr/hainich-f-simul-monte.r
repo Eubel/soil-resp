@@ -65,6 +65,7 @@ simulRes <- monte(hainich,n,nTrain)
 ## evaluation
 # gets a list of features with maximal F (count: topN)
 # returns true if min(SPSE) is in this list
+takenFeatures <- data.frame()
 minSPSEinTopF <- function(round, topN){
   run <- simulRes[simulRes$run == round,]
   run <- run[order(run$F, decreasing = T),] # order by F
@@ -72,7 +73,9 @@ minSPSEinTopF <- function(round, topN){
   
   minSPSE <- simulRes[simulRes$spse == min(simulRes$spse) 
                       & simulRes$run == round,]
-  
+  maxF <- simulRes[simulRes$F == max(simulRes$F) 
+                   & simulRes$run == round,]
+
   #return true if best feature by SPSE is in top list by F value
   if(minSPSE$addedFeature %in% run$addedFeature){
     return(TRUE)
@@ -86,7 +89,7 @@ probDecisionWrong <- function(topN){
   rounds <- max(simulRes$run)
   wrongRoundsCount <- 0
   
-  #for all round
+  #for every round
   for(i in 1:rounds){
     if(!minSPSEinTopF(i,topN)){
       wrongRoundsCount <- wrongRoundsCount + 1
@@ -96,7 +99,8 @@ probDecisionWrong <- function(topN){
   return(wrongRoundsCount / rounds)
 }
 
+
 #probability that F test dont get min SPSe in thier top 5 list
-probWrongTop3 <- probDecisionWrong(3)
-probWrongTop4 <- probDecisionWrong(4)
-# -> F test is always in top 4 but never in top 3 ???
+probWrongTop8 <- probDecisionWrong(8)
+probWrongTop9 <- probDecisionWrong(9)
+probWrongTop10 <- probDecisionWrong(10)

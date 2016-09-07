@@ -9,6 +9,7 @@
 \usepackage{graphicx}					% figures
 \usepackage{verbatim}					% code
 \usepackage{listings}					% code listings
+\usepackage{ragged2e}					% justified text
 
 \renewcommand{\bf}[1]{\textbf{#1}}
 \renewcommand{\it}[1]{\textit{#1}}
@@ -50,17 +51,20 @@
 		Dies wird im folgendem diskutiert.
 	\end{abstract}
 	
+	\justify
+	
 	\newpage
 	\tableofcontents
 	\newpage
 	
-	\begin{flushleft}
-		\input{sec/1-intro.tex}
-		\newpage
-		\input{sec/2-model.tex}
-		\newpage
-	\end{flushleft}
 	
+	\input{sec/1-intro.tex}
+	\newpage
+	\input{sec/2-model.tex}
+	\newpage
+	\input{sec/3-simul.tex}
+
+
 	\bibliography{hainich}
 	\bibliographystyle{abbrv}
 \end{document}

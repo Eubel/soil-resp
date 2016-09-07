@@ -21,7 +21,7 @@ getFtable <- function(train, test){
     nxtModel <- lm(nxtModelStr, data = train)
     
     #evaluate nextModel
-    an <- anova(realModel, nxtModel) 
+    an <- anova(realModel, nxtModel)
     f <- an$F[2] # F-value
     p <- an$`Pr(>F)`[2] # p-value
     spse <- spseHat(nxtModel, test) # error in new model
@@ -76,12 +76,10 @@ for(i in seq(fold)){
 ## plotting
 xs <- seq(0,7,by = 0.01)
 freal <- density(simulRes$F)
-## WARNING: I have no idea how to calc the degree of freedoms!
-## maybe an$Res.Df? need df1 and df2
-fNominal <- df(xs,24,23)
-plot(freal, xlim=c(min(xs),max(xs)), ylim=c(0,1),
+fNominal <- df(xs,25,24)
+plot(freal, xlim=c(0,7), ylim=c(0,1.2),
      xlab = "F-Value",
-     main="Kernel distribution of F Values \n from models with different extra feature")
+     main="Kernel distribution of F values \n from models with different extra feature")
 points(xs, fNominal, col="red", type="lines") #F distribution
 legend("topright",c("Data","Calculated"), lwd=2, col=c("black","red"), bty = "n")
 
@@ -93,4 +91,8 @@ barplot(run1$F, names.arg = run1$addedFeature, ylim = c(0,6),
 
 run1 <- run1[with(run1, order(spse)), ] # order by spse
 barplot(run1$spse, ylab = "Estimated SPSE", ylim = c(0,13),
+        names.arg = run1$addedFeature, las=2, col="black")
+
+run1 <- run1[with(run1, order(deltaSpse)), ] # order by spse difference
+barplot(run1$deltaSpse, ylab = "SPSE: extended- full", ylim = c(-2,2),
         names.arg = run1$addedFeature, las=2, col="black")
