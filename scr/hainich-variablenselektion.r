@@ -1,33 +1,44 @@
 # nicht vergessen: setwd!
 # setwd("/home/daniel/Schreibtisch/Statistik Projekt")
-# setwd("~/Projects/GithubProjects/soil-resp/scr")
+setwd("~/Projects/GithubProjects/soil-resp/scr")
 
 hainich <- read.csv("hainich.csv", sep = ";", dec = ".")
 
 # Correlation mit Pearson
 hainich.pear <- abs(cor(hainich))["soil.res",-1]
 hainich.pear.ordered <- hainich.pear[order(hainich.pear, decreasing = T)]
-png(file="../doc/fig/correlation-pearson.png",width=800,height=360)
+#png(file="../doc/fig/correlation-pearson.png",width=800,height=360)
 barplot(hainich.pear.ordered, las = 2, ylim = c(0,0.5), col = "black",
         ylab = "Absolute Pearson Korrelation", main = "Korrelation der Variablen mit Soil Respiration")
-dev.off()
+#dev.off()
 
 names(hainich.pear.ordered)
 # fig/scatterplot-pearson-top8.png
-png(file="../doc/fig/scatterplot-pearson-top8.png",width=800,height=800)
+#png(file="../doc/fig/scatterplot-pearson-top8.png",width=800,height=800)
 pairs(~ lmoi + temp.15 + litdoc + litter.d  + smoi + rootdw0 + temp.0 + soiln0, data=hainich ,main="Scatterplot der Top 8 korrelierenden Variablen nach Pearson")
-dev.off()
+#dev.off()
 
 # Shapiro normalverteilt?
 hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
 hainich.shapiro.ordered <- hainich.shapiro[order(hainich.shapiro, decreasing = T)]
-png(file="../doc/fig/normalverteilung-shapiro.png",width=800,height=360)
+#png(file="../doc/fig/normalverteilung-shapiro.png",width=800,height=360)
 barplot(hainich.shapiro.ordered, las = 2, ylim = c(0,1), col = "black",
         ylab = "p-value", main = "Shapiro Test aller Variablen")
 abline(h=0.05, col="red")
-dev.off()
+#dev.off()
 
-hainich.normal <- hainich[names(hainich.shapiro.ordered[hainich.shapiro.ordered > 0.05])]
+hainich.normal <- hainich[names(hainich.shapiro.ordered[hainich.shapiro.ordered > 0.032])]
+
+# Correlation mit Pearson
+hainich.pear <- abs(cor(hainich.normal))["soil.res",-16]
+hainich.pear.ordered <- hainich.pear[order(hainich.pear, decreasing = T)]
+#png(file="../doc/fig/correlation-pearson.png",width=800,height=360)
+barplot(hainich.pear.ordered, las = 2, ylim = c(0,0.5), col = "black",
+        ylab = "Absolute Pearson Korrelation", main = "Korrelation der Variablen mit Soil Respiration")
+#dev.off()
+
+
+
 
 
 
