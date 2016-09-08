@@ -51,7 +51,8 @@ Während der 200 Simulationen verblieb der Wert unverändert.
 	}
 	\label{fig-simul-kernel}
 \end{figure}
-Unter der Nullhypothese (Erweitertes Modell ist nicht besser als das "wahre" Modell) ist die F-Statistik eine F-verteilte Zufallsvariabel.
+
+Unter der Nullhypothese (Erweitertes Modell ist nicht besser als das "wahre" Modell) ist die F-Statistik eine F-verteilte Zufallsvariable.
 Die Dichtefunktion der Daten aus der Kreuzüberprüfung (approx. durch Kernel-Desity) ist nach Abb. \ref{fig-simul-kernel} mitunter stark abweichend.
 Die Simulation möchte demnach das wahre Modell erweitern ($H_0$ wird abgelehnt).
 Dies führt zu Overfitting, da das Modell bereits als wahr angenommen wurde und demnach keine weiteren Features hinzugefügt werden sollten.
@@ -62,7 +63,7 @@ Dies führt zu Overfitting, da das Modell bereits als wahr angenommen wurde und 
 Dies kann mehrere Gründe haben:
 Gemessene Features müssen nicht zwangsläufig von der Bodenatmung statistisch abhängig sein.
 Je geringer die Korrelation dieser beiden Zufallsvariablen, desto höher ist die Wahrscheinlichkeit, dass es sich nur um Rauschen handelt.
-In diesem Fall sollte diese Variabel nicht zum Modell hinzugefügt werden.
+In diesem Fall sollte diese Variable nicht zum Modell hinzugefügt werden.
 Zufälligerweise kann dies aber auch zu hohen F-Werten führen, welches zu fehlerhaften Entscheidungen bei den Hypothesentests führt.
 Ferner fordert der F-Test normalverteilte Variablen.
 Folgt eine Messgröße nicht dieser Verteilung, ist der Test nicht aussagekräftig.

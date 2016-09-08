@@ -1,67 +1,94 @@
-\section{Einleitung}
-\label{sec-intro}
+%\section{Einleitung}
+%\label{sec-intro}
 
-\subsection{Bodenatmung als geophysikalischer Prozess}
-\cite{foo}
+%\subsection{Bodenatmung als geophysikalischer Prozess}
+%\cite{foo}
 
-\subsection{Statistische Grundlagen}
+%\subsection{Statistische Grundlagen}
 
-\subsubsection{Fehlermaße}
-RSS (\it{Residual sum of Suqres}).
-SPSE ist der summierte quadratische Fehler zwischen Modellvorhersage und Messwert auf unabhängigen Testdaten:
-\begin{equation}
-	\widehat{SPSE} = \sum_{i=1}^n (y_i - \vec{\beta} * x_i^T )^2
-\end{equation}
-Das Modell wurde vorher mit anderen Trainingsdaten erstellt.
+%\subsubsection{Fehlermaße}
+%RSS (\it{Residual sum of Suqres}).
+%SPSE ist der summierte quadratische Fehler zwischen Modellvorhersage und Messwert auf unabhängigen Testdaten:
+%\begin{equation}
+%	\widehat{SPSE} = \sum_{i=1}^n (y_i - \vec{\beta} * x_i^T )^2
+%\end{equation}
+%Das Modell wurde vorher mit anderen Trainingsdaten erstellt.
 
-\subsubsection{Korrelation}
-Unter \it{Korrelation} versteht man die „Wechselbeziehung“ zweier Zufallsgrößen.
-Dieser Zusammenhang kann entweder \it{linear} (Korrelationskoeffizient nach Pearson) oder lediglich \it{monoton} sein.
-Ist eine Korrelation nicht gegeben, so scheint die Zufallsgröße als ungeeigneter Prädiktor für die jeweils andere Variabel.
-Kausale Beziehungen erfordern Korrelation.
-\\
-Der \it{lineare, empirische Korrelationskoeffizient nach Person} zwischen den Variabeln $X$ und $Y$ wird definiert durch:
-\begin{equation}
-	Kor_e(x,y) := \varrho_e(x,y) := r_{xy} := \frac{
-		\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y)
-	}{
-	\sqrt{
-		\sum_{i=1}^n(x_i-\bar x)^2\cdot
-		\sum_{i=1}^n(y_i-\bar y)^2
-	}
-	}
-\end{equation}
-mit den empirischen Mittelwert $\bar x$ aus $n$ Messwerten von $X$.
-Möchte man lediglich ein \it{lineares} Modell erstellen, so ist die Pearson-Korrelation zu wählen.
-\\
-Eine allgemeinere Beschreibung der Korrelation ist die nach \it{Spearsman}, welche auf Ranglisten beruht:\\
-\begin{align}
-	r_s &= \frac{\sum_{i}(rg(x_i)-\overline{rg}_x)(rg(y_i)-\overline{rg}_y)} {\sqrt{\sum_{i}(rg(x_i)-\overline{rg}_x) ^2}\sqrt{\sum_{i}(rg(y_i)-\overline{rg}_y)^2}}\\
-	&= \frac { \frac{1}{n} \sum_{i}(rg(x_{i})  rg(y_{i})) - \overline{rg_x rg_y}  }{s_{rg_x} s_{rg_y}} \\
-	&= \frac {{Cov}(rg_{x},rg_{y} )} { s_{rg_x} s_{rg_y} }
-\end{align}
-Somit lassen sich auch nicht-lineare Korrelationen in Datensätzen erkennen.
-Insbesondere im Betrachtung des exponentiellem Verhaltens in Abhängigkeit von der Temperatur ist diese Art der Korrelation wichtig.
-Zur Berechnung des Anteils an der \it{erklärten} Varianz in linearen Modellen allerdings kann diese Variante nicht verwendet werden.
+%\subsubsection{Korrelation}
+%Unter \it{Korrelation} versteht man die „Wechselbeziehung“ zweier Zufallsgrößen.
+%Dieser Zusammenhang kann entweder \it{linear} (Korrelationskoeffizient nach Pearson) oder lediglich \it{monoton} sein.
+%Ist eine Korrelation nicht gegeben, so scheint die Zufallsgröße als ungeeigneter Prädiktor für die jeweils andere Variable.
+%Kausale Beziehungen erfordern Korrelation.
+%\\
+%Der \it{lineare, empirische Korrelationskoeffizient nach Person} zwischen den Variablen $X$ und $Y$ wird definiert durch:
+%\begin{equation}
+%	Kor_e(x,y) := \varrho_e(x,y) := r_{xy} := \frac{
+%		\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y)
+%	}{
+%	\sqrt{
+%		\sum_{i=1}^n(x_i-\bar x)^2\cdot
+%		\sum_{i=1}^n(y_i-\bar y)^2
+%	}
+%	}
+%\end{equation}
+%mit den empirischen Mittelwert $\bar x$ aus $n$ Messwerten von $X$.
+%Möchte man lediglich ein \it{lineares} Modell erstellen, so ist die Pearson-Korrelation zu wählen.
+%\\
+%Eine allgemeinere Beschreibung der Korrelation ist die nach \it{Spearsman}, welche auf Ranglisten beruht:\\
+%\begin{align}
+%	r_s &= \frac{\sum_{i}(rg(x_i)-\overline{rg}_x)(rg(y_i)-\overline{rg}_y)} {\sqrt{\sum_{i}(rg(x_i)-\overline{rg}_x) ^2}\sqrt{\sum_{i}(rg(y_i)-\overline{rg}_y)^2}}\\
+%	&= \frac { \frac{1}{n} \sum_{i}(rg(x_{i})  rg(y_{i})) - \overline{rg_x rg_y}  }{s_{rg_x} s_{rg_y}} \\
+%	&= \frac {{Cov}(rg_{x},rg_{y} )} { s_{rg_x} s_{rg_y} }
+%\end{align}
+%Somit lassen sich auch nicht-lineare Korrelationen in Datensätzen erkennen.
+%Insbesondere im Betrachtung des exponentiellem Verhaltens in Abhängigkeit von der Temperatur ist diese Art der Korrelation wichtig.
+%Zur Berechnung des Anteils an der \it{erklärten} Varianz in linearen Modellen allerdings kann diese Variante nicht verwendet werden.
 
-\subsubsection{Informationskriterien}
-BIC/AIC
+%\subsubsection{Informationskriterien}
 
-\subsubsection{Test auf Vorliegen einer Normalverteilung}
-Shapiro
+%Je mehr Variablen für ein Modell in Betracht gezogen werden, um so komplexer wird es. Meist wünscht man sich aber ein einfaches Modell, dass mit möglichst wenigen Variablen sehr gute Vorhersagen treffen kann. Mit verschiedenen Informationskriterien kann man nach Variablen mit der minimale Varianz der Residuen suchen. Das \emph{Bayessches Informationskriterium (BIC)}\footnotetext[1]{Schwarz-Bayes Criterion (SBC))} ist im Vergleich zu \emph{Akaikes Informationskriterium} abhängig von der Stichprobengröße.
 
-\subsubsection{F-Test in geschachtelten Modellen}
-Der \it{F-Test} überprüft, ob zwei verschachtelte Modelle mit den Featuremengen $M_1 \subseteq M_2$ sich signifikant unterscheiden.
-Hierbei wird auf den gleichen Testdaten evaluiert.
-Die Statistik ist F-verteilt unter Annahme der Nullhypothese und abhängig von den Freiheitsgraden (Anzahl der Features im Modell).
-Es wird die Nullhypothese überprüft, ob die hinzugefügten Features des erweiterten Modells statistisch irrelevant sind ($H_0: \beta_i = 0$).
-Die F-Statistik wird gebildet durch:
-\begin{equation}
-	F=\frac{\frac{RSS_1-RSS_2}{p_2-p_1}}{\frac{RSS_2}{n-p_2}}
-\end{equation}
-mit den quadrierten Residuen $RSS$, den Anzahl an Freiheitsgraden $p_i$ in den Modellen $M_1$ und das um  weitere Feature erweiterte Modell $M_2$.
-Ist der F-Wert je nach Signifikanzniveau hinreichend groß, kann die Nullhypothese abgelehnt werden:
-Das erweiterte Modell beschreibt die Daten nun signifikant genauer.
-Der Fehler $RSS$ wird so stark verringert, dass es auch eine Erhöhung der Freiheitsgrade rechtfertigt. 
-\\
-Die R-Funktion \lstinline|anova(model1, model2)| führt derartige Tests durch. Ist der p-Value (in R \lstinline|F Pr(>F)|) kleiner als das Signifikanzniveau, so wird im Rahmen der Variabelnselektion das erweiterte Modell favorisiert.
+%$$\displaystyle AIC_{\ell }=-2\ell (\mathbf {\hat {\theta }} )+2k$$
+
+%$$\displaystyle BIC_{\ell }=-2\ell (\mathbf {\hat {\theta }} )+\log(n)k$$
+
+%Dies machen wir uns bei unseren Testdaten nützlich, da unsere Stichprobe recht klein ist. Zusätzlich betrachten wir noch das \emph{korrigierte Bestimmtheitsmaß  $\bar{R^2}$ (adjr2; engl. \it{adjusted r-squared})}. Es ist im Vergleich zum Bestimmtheitsmaß $R^2$ angepasst an die Anzahl der Variablen im Modell. Es steigt nur an, wenn die Variable das Modell stärker verbessert als der Zufall, ansonsten sinkt es.
+
+%$$\bar R^2 = 1- (1-R^2) \frac{n-1}{n-p-1} = R^2 - (1-R^2) \frac{p}{n-p-1}$$
+
+%%(33 Variablen mit je 38 Messungen, von denen einige wegfallen, weil sie nicht normalverteilt sind.)
+%%Adjusted r-squared
+%%BIC/AIC
+
+%\subsubsection{Test auf Vorliegen einer Normalverteilung}
+
+%Der \emph{Shapiro-Wilk-Test} ist ein statistischer Test zur Überprüfung der Hypothese, ob Variablen normalverteilt sind. Wenn bei dem Test die p-Value großer als 0.05 ist, dann ist die Variable normalverteilt.
+%dieses Test ist benutzbar wenn die Anzahl der Variablen zwischen 3 und 5000 ist. Somit ist es geeignet für unsere Variablen. Der Test basiert auf der Teststatistik W, der den graphischen Überprüfungen (zum Beispiel QQ-Plot) einen Wert zuweist.
+
+%$$\textit{W} = {{b^2}\over {(n-1)s^2}}$$
+
+%\cite{2012shapiro}
+
+%Mit $b^2$ als quadrierte Steigung der Regressionsgeraden im QQ-Plot.
+
+%%Zur Überprüfung der Nullhypothese fasst das Shapiro-Wilk-Testverfahren die graphischen Informationen in einer Kennzahl zusammen, die einer Analyse mittels Normalwahrscheinlichkeitsplot entspringen würden. Diese Kennzahl, die Teststatistik W, drückt das Verhältnis zweier Varianz-Schätzer zueinander aus.
+
+
+%%Der Ausdruck im Zähler der Teststatistik schätzt die Varianz einer Stichprobe, die aus einer normalverteilten Grundgesamtheit stammt. Die Teststatistik vergleicht dann diese unter der Nullhypothese „erwartete“ Varianz mit der tatsächlichen Varianz der Stichprobe, deren Schätzer im Nenner der Teststatistik zu finden ist. 
+
+%\subsubsection{F-Test in geschachtelten Modellen}
+%Der \it{F-Test} überprüft, ob zwei verschachtelte Modelle mit den Featuremengen $M_1 \subseteq M_2$ sich signifikant unterscheiden.
+%Hierbei wird auf den gleichen Testdaten evaluiert.
+%Unter Annahme der Nullhypothese ist die Test-Statistik F-verteilt und abhängig von den Freiheitsgraden (Anzahl der Features im Modell).
+%Mit der Nullhypothese wird überprüft, ob die hinzugefügten Features des erweiterten Modells statistisch irrelevant sind ($H_0: \beta_i = 0$).
+
+%Die F-Statistik wird gebildet durch:
+%\begin{equation}
+%	F=\frac{\frac{RSS_1-RSS_2}{p_2-p_1}}{\frac{RSS_2}{n-p_2}}
+%\end{equation}
+%mit den quadrierten Residuen $RSS$, den Freiheitsgraden $p_i$ in den Modellen $M_1$ und das um weitere Feature erweiterte Modell $M_2$.
+%Ist der F-Wert je nach Signifikanzniveau hinreichend groß, kann die Nullhypothese abgelehnt werden:
+%Das erweiterte Modell beschreibt die Daten nun signifikant genauer.
+%Der Fehler $RSS$ wird so stark verringert, dass es auch eine Erhöhung der Freiheitsgrade rechtfertigt. 
+%\\
+%Die R-Funktion \lstinline|anova(model1, model2)| führt derartige Tests durch. Ist der p-Value (in R \lstinline|F Pr(>F)|) kleiner als das Signifikanzniveau, so wird im Rahmen der Variablenselektion das erweiterte Modell favorisiert.
