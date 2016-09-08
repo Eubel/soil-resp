@@ -210,6 +210,8 @@ TSWLatexianTemp*
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
 
+# gedit latex link files
+.ini
 
 ### R ###
 # History files
