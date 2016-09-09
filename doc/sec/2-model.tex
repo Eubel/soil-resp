@@ -5,14 +5,14 @@ Der Datensatz enthält sehr viele Features im Vergleich zur Anzahl an Messungen.
 Der Suchraum der Variablenselektion wäre viel zu groß und muss demnach verkleinert werden.
 Außerdem ist eine Schätzung von so vielen Parametern mit vergleichsweise geringen Messungen auch statistisch zu ungenau.
 
-\subsubsection{Test auf Vorliegen einer Normalverteilung}
+\subsection{Test auf Vorliegen einer Normalverteilung}
 
 Es werden nur normalverteilte (\it{Shapiro-Wilk}) und stark korrelierende (\it{Pearson}) Variablen in Betracht gezogen. Um \it{Pearson} als Korrelationskoeffizienten nutzen zu können, müssen die Messungen der Variablen normalverteilt sein. Um dies zu testen nutzen wir den \it{Shapiro-Wilk-Test}. Wenn der \it{p-Value} des \it{Shapiro-Wilk-Test} kleiner als $0.05$ ist, dann ist die Variable normalverteilt. Wie in Abbildung \ref{fig:shapiro} zu sehen ist, sind nur 14 der insgesamt 33 Variablen normalverteilt.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{fig/model/normalverteilung-shapiro.png}
-	\caption{\it{P-Value} des \bf{Shapiro-Wilk-Test} aller Variablen.}
+	\caption{\bf{P-Value des Shapiro-Wilk-Test aller Variablen.}}
 	\label{fig:shapiro}
 \end{figure}
 
@@ -53,28 +53,33 @@ Eine hohe \it{Pearson}-Korelation bestätigte den Verdacht.
 Transformationen bringen keine deutlichen Verbesserungen der Variablen. 
 Für diese Analyse wurde außerdem ein Scatterplot genutzt (Abbildung im Anhang).
 
+
 \subsection{Variablenselektion}
 
-Mit Hilfe des R-Pakets \emph{leaps} wird das Modell mit dem geringsten $BIC$ ausgewählt, welches das Kriterium der Modellqualität erfüllt.
+Mit Hilfe des R-Pakets \emph{leaps} wird das Modell mit dem geringsten Wert des \emph{Bayesschem Informationskriteriums (BIC)} ausgewählt, welches das Kriterium der Modellqualität erfüllt.
+In Abbildung \ref{fig:bic} sieht man, dass alle Variablen außer \emph{soiln0} gewählt werden. 
+
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{fig/model/variablenselektion-bic-adjr2.png}
+	\caption{\bf{Variablenselektion mittels Bayesschem Informationskriterium (bic) und korrigiertes Bestimmtheitsmaß $\bar{R^2}$ (adjr22)}. Im linken Bild sieht man die Variablenselektion anhand des \emph{Bayesschem Informationskriteriums} und des \emph{korrigierte Bestimmtheitsmaßes}, die beide das Modell mit den ersten drei Variablen (\emph{lmoi, temp.15, smoi}) bevorzugt.}
+    \label{fig:bic}
+\end{figure}
 
 \subsection{Ergebnis}
-Qualität des gewählten Modells
+
+$$soil.res = \vec{\beta} * (1,lmoi,temp15,smoi)^T$$
+
+%Qualität des gewählten Modells
 
 \subsection{Umsetzung mit R}
 
 \begin{lstlisting}
 # Test auf Normalverteilung
 hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
-hainich.shapiro.ordered <- hainich.shapiro[order(hainich.shapiro, decreasing = T)]
-barplot(hainich.shapiro.ordered, las = 2, ylim = c(0,1), col = "black",
-        ylab = "p-value", main = "Shapiro Test aller Variablen")
-abline(h=0.05, col="red")
-
-hainich.normal <- hainich[names(hainich.shapiro.ordered[hainich.shapiro.ordered > 0.032])]
-
+hainich.normal <- hainich[names(hainich.shapiro[hainich.shapiro > 0.032])]
 # Korrelation mit Pearson
 hainich.pear <- abs(cor(hainich.normal))["soil.res",-16]
-hainich.pear.ordered <- hainich.pear[order(hainich.pear, decreasing = T)]
-barplot(hainich.pear.ordered, las = 2, ylim = c(0,0.5), col = "black",
-        ylab = "Absolute Pearson Korrelation", main = "Korrelation der Variablen mit Soil Respiration")
 \end{lstlisting}

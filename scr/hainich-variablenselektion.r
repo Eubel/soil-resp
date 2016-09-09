@@ -15,7 +15,7 @@ pairs(~ lmoi + temp.15 + litdoc + litter.d  + smoi + rootdw0 + temp.0 + soiln0, 
 #dev.off()
 
 # Shapiro normalverteilt?
-hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
+hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value, hainich)
 hainich.shapiro.ordered <- hainich.shapiro[order(hainich.shapiro, decreasing = T)]
 #png(file="../doc/fig/normalverteilung-shapiro.png",width=800,height=360)
 barplot(hainich.shapiro.ordered, las = 2, ylim = c(0,1), col = "black",
