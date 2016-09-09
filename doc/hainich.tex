@@ -6,15 +6,31 @@
 \usepackage{cite}						% Bibtex
 \usepackage[onehalfspacing]{setspace}	% spacing
 \usepackage{amsmath}					% more math
+\usepackage{paralist}                   % compact lists
 \usepackage{graphicx}					% figures
+\usepackage{hyperref}					% links
 \usepackage{verbatim}					% code
 \usepackage{listings}					% code listings
 \usepackage{ragged2e}					% justified text
-\usepackage{hyperref}					% links
-\usepackage{natbib}
+\usepackage[numbers]{natbib}
 
 \renewcommand{\bf}[1]{\textbf{#1}}
 \renewcommand{\it}[1]{\textit{#1}}
+
+\hypersetup{
+    pdftitle={Bodenatmung im Nationalpark Hainich},
+    pdfauthor={Jalali, Loos, Sichting},
+    pdfsubject={Projekt zur Vorlesung Statistische Verfahren SoSe 2016},
+    pdfkeywords={Statistik, Bodenatmung, Hainich, Projekt 9},
+    bookmarksnumbered=true,     
+    bookmarksopen=true,         
+    bookmarksopenlevel=1,       
+    linkcolor=blue,
+    citecolor=blue,
+    colorlinks=true,            
+    pdfstartview=Fit,           
+    pdfpagemode=UseOutlines    % this is the option you were lookin for
+}
 
 %listings
 \lstset{
@@ -33,7 +49,7 @@
 
 \title{Bodenatmung im Nationalpark Hainich}
 \subtitle{Erstellung eines statistischen Modells und Diskussion von Fehlentscheidungen im Rahmen der Variablenselektion}
-\author{Sichtling C \and Loos D \and Jajali R}
+\author{Sichting C \and Loos D \and Jalali R}
 
 \begin{document}
 	\maketitle
@@ -59,7 +75,6 @@
 	\tableofcontents
 	\newpage
 	
-	
 	\input{sec/1-intro.tex}
 	\newpage
 	\input{sec/2-model.tex}
@@ -70,7 +85,7 @@
     \newpage
 	\input{sec/5-appen.tex}
 
-	\bibliographystyle{abbrv}
+	\bibliographystyle{unsrtnat}
     \bibliography{hainich}
 	
 \end{document}
