@@ -211,7 +211,7 @@ TSWLatexianTemp*
 .Trash-*
 
 # gedit latex link files
-.ini
+*.ini
 
 ### R ###
 # History files
