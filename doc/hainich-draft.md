@@ -12,18 +12,18 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
 
 ### Der Datensatz
 
-- 38 Messwerte, 33 Variabeln
-- Viel zu wenig Messwerte, um alle Variabeln statistisch begründen zu können -> Reduktion der Featuremenge notwendig
+- 38 Messwerte, 33 Varialen
+- Viel zu wenig Messwerte, um alle Varialen statistisch begründen zu können -> Reduktion der Featuremenge notwendig
 - Viele statistische Abhänigkeiten verringern außerdem den statistischen Informaionsgehalt ($Temp_5$ bringt nur marginalen Mehrwert, wenn man $Temp_{10}$ bereits gemessen hat)
 
 ### Vorgehen
 
-- Variabelnselektion
-  - Unkorrelierte Variabeln aussortieren
-  - nicht normalverteilte Variabeln aussortieren (Verteilung ist Bedingung in vielen stat. Tests)
+- Varialenselektion
+  - Unkorrelierte Varialen aussortieren
+  - nicht normalverteilte Varialen aussortieren (Verteilung ist Bedingung in vielen stat. Tests)
   - Überprüfung auf Affinität (mögliche Linkfunktionen für pH,Temp und moisture)
 - Erstellung des Modells
-    - Wahl der 5 best korrelierten Variabeln
+    - Wahl der 5 best korrelierten Varialen
     - Erstellung eines linearen Modells
     - Partitionierung: 80% Training / 20% Test
 
@@ -32,7 +32,7 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
 - Fehler
   - SPSE
   - RSS
-- Informationskriterien in der Variabelnselektion
+- Informationskriterien in der Varialenselektion
   - AIC
   - BIC
 - Korrelation
@@ -47,13 +47,13 @@ Unsere Arbeit - in Stichpunkten und Nussschalen
 - F-Test in verschachtelten Modellen
   - Test auf signifikantem Unterschied zweier Modelle mit verschachtelten Featuremengen
   - Wird der Fehler $RSS$ wirklich so stark reduziert, dass es sich lohnt, die Freiheitsgrade des Modells zu erhöhen (mehr Features)?
-  - Die R-Funktion `anova(model1,model2)` testet, ob zwei verschachtelte Modelle (Model 2 enthält alle Variabeln von Modell 1 + weitere), die auf den gleichen Trainingsdaten erstellt wurden, sich signifikant unterscheiden. Ist der p-Value (in R `F Pr(>F)` im anova-Table) kleiner $0.05%$ kann die Nullhypothese (Zusätzliche Features erklären die Varianz nicht besser als das ursprüngliche Modell) verworfen werden. Das erweiterte Modell ist somit signifikant besser.
+  - Die R-Funktion `anova(model1,model2)` testet, ob zwei verschachtelte Modelle (Model 2 enthält alle Varialen von Modell 1 + weitere), die auf den gleichen Trainingsdaten erstellt wurden, sich signifikant unterscheiden. Ist der p-Value (in R `F Pr(>F)` im anova-Table) kleiner $0.05%$ kann die Nullhypothese (Zusätzliche Features erklären die Varianz nicht besser als das ursprüngliche Modell) verworfen werden. Das erweiterte Modell ist somit signifikant besser.
 
 ## Erstellung eines statistischen Modells
 
 - Daten: hainich.csv, A. Soe, MPI Biogeochemie
 - Programmierumgebung: R
-- Variabelnselektion `hainich-variablenselektion.r`
+- Varialenselektion `hainich-variablenselektion.r`
 
 ### Korrelation
 - Relevante Features müssen mit der Bodenatmung korrelieren
@@ -74,7 +74,7 @@ hainich.pear <- abs(cor(hainich))["soil.res",-1]
 ~~~
 
 ### Linkfunktionen
-- Stark Spearman korrelierte Variabeln benötigen eine Linkfunktion zur Linearisierung
+- Stark Spearman korrelierte Varialen benötigen eine Linkfunktion zur Linearisierung
 - Bsp: pH ist etwas Spearman aber sehr wenig Pearson korreliert, aufgrund der log. Definition des pH-Wertes. Hier wäre Linkfunktion nötig.
 - Paper von A. Soe und Regel von Arrhenius schlagen log-Linkfunktion für Temperatur vor
 - Abb zeigt: Bei aktueller Datenlage kein logarithmischer Zusammenhang erkennbar
@@ -98,7 +98,7 @@ hainich.shapiro <- mapply(function(x) shapiro.test(x)$p.value,hainich)
 - Sampling der Daten auf test/train
 - R-Paket `leaps` und Funktion `regsubsets`
 - Ergebnis: `soil.res ~ 1 + lmoi + temp.15 + smoi`
-- Grundlage ist BIC. Hinzufügen einer weiteren Featurevariabel führte nur zu schlechteren BIC Werten
+- Grundlage ist BIC. Hinzufügen einer weiteren Featurevariale führte nur zu schlechteren BIC Werten
 ~~~
 library("leaps")
 hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
@@ -109,13 +109,13 @@ hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
 
 ## Simulation und Fehlerabschätzung
 
-- Beim F-Test wird die Hypothese überprüft, ob eine zusätzliche Featurevariabel den Fehler $RSS$ signifikant im Bezug auf die zusätzlichen Freiheitsgrade verbessert
+- Beim F-Test wird die Hypothese überprüft, ob eine zusätzliche Featurevariale den Fehler $RSS$ signifikant im Bezug auf die zusätzlichen Freiheitsgrade verbessert
 - Das kann zu Fehlentscheidungen führen, da maximale $F$-Werte nicht zwangsläufig zu minimalen direkten Fehlern $SPSE$ führen
 - Das kann mehrere Gründe haben:
   - F-Test fordert Normalverteilung. Das ist nicht immer gegeben
   - Gemesse Features sind nicht aussagekräftig
   - Datenerhebung fehlerhaft
-  - Stat. Abhänigkeiten von Variabeln verzerren Ergebnis
+  - Stat. Abhänigkeiten von Varialen verzerren Ergebnis
   - Test kann auch nur zufällig richtig sein (p-Value?)
 - Vorhergensweise
   - gegeben: Vorher erstelltes Model, welches als "wahr" angesehen werden kann
@@ -126,7 +126,7 @@ hainich.leaps <- regsubsets(soil.res ~ 1 + lmoi + temp.15 + smoi + soiln0,
 - Auswertung
   - Schätze Wahrscheinlichkeit zur Fehlentscheidung von $H_0$
   - Überprüfung mittels Kerneldichte: Sind die F-Werte auch f-verteilt?
-    - Unter der Nullhypothese (Erweitertes Modell ist nicht besser als das "wahre" Modell) ist die F-Statistik eine F-verteilte Zufallsvariabel. Die Dichtefunktion der Daten aus der Kreuzüberprüfung (approx. durch Kernel-Desity) ist nach dem Bild mitunter stark abweichend. Die Simulation möchte demnach das wahre Modell erweitern (Ho abgelehnt). Das führt zu Overfitting.
+    - Unter der Nullhypothese (Erweitertes Modell ist nicht besser als das "wahre" Modell) ist die F-Statistik eine F-verteilte Zufallsvariale. Die Dichtefunktion der Daten aus der Kreuzüberprüfung (approx. durch Kernel-Desity) ist nach dem Bild mitunter stark abweichend. Die Simulation möchte demnach das wahre Modell erweitern (Ho abgelehnt). Das führt zu Overfitting.
   - Waren die Entscheidungen knapp?
 
 ## Diskussion
