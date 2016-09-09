@@ -19,6 +19,7 @@ getFtable <- function(train, test){
     nxtModelStr <- paste(realModelStr, "+", x)
     nxtModel <- lm(nxtModelStr, data = train)
     
+
     #evaluate nextModel
     an <- anova(realModel, nxtModel) 
     f <- an$F[2] # F-value
@@ -57,7 +58,7 @@ monte <- function(data, n, nTrain){
 
 set.seed(1337)
 hainich <- read.csv("hainich.csv", sep = ";", dec = ".")
-n <- 100 # number of monte carlo simulations
+n <- 200 # number of monte carlo simulations
 nTrain <- 25 # number of training data points
 simulRes <- monte(hainich,n,nTrain)
 

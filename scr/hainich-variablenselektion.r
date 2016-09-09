@@ -1,7 +1,3 @@
-# nicht vergessen: setwd!
-# setwd("/home/daniel/Schreibtisch/Statistik Projekt")
-setwd("~/Projects/GithubProjects/soil-resp/scr")
-
 hainich <- read.csv("hainich.csv", sep = ";", dec = ".")
 
 # Correlation mit Pearson

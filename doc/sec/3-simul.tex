@@ -13,7 +13,7 @@ Wichtig hierbei war, dass beide Modelle auf den selben Trainingsdaten erstellt w
 Die Partitionierung der Daten erfolgte sowohl mittels Kreuzvalidierung als auch mit einem Monte-Carlo-Ansatz.
 Bei der 4-fachen Kreuzvalidierung wurden die Daten in vier möglichst gleich großen Partitionen aufgeteilt.
 Eine Partition wurde zum Testen des Reproduktionsfehlers verwendet, die Anderen zum Training.
-Beim Monte-Carlo-Ansatz wurden 100 mal zufällig 20\% der Daten zum Testen ausgewählt.
+Beim Monte-Carlo-Ansatz wurden 200 mal zufällig 20\% der Daten zum Testen ausgewählt.
 Dadurch kann die Wahrscheinlichkeit der Fehlentscheidungen im Bezug auf die Nullhypothese besser geschätzt werden.
 Die Ermittlung des Reproduktionsfehlers $\widehat{SPSE}$ erfolgte mittels unabhängigen Testdaten.
 Um zu überprüfen, ob sich das Modell überhaupt verbessert hat, wurde die Differenz $\Delta \widehat{SPSE}$ im Bezug auf das Ausgangsmodell berechnet.
@@ -41,13 +41,15 @@ Auch kann es vorkommen, dass eine Zufallsvariable überwiegend Rauschen beinhalt
 \\
 Nach der Monte-Carlo-Simulation war das Modell mit dem geringsten $\widehat{SPSE}$ stets das Modell mit den 9. höchsten F-Wert.
 Während der 200 Simulationen verblieb der Wert unverändert.
+Wenn man davon ausgeht, das das erstellte Modell wirklich "wahr" ist, so entspricht dies eine Wahrscheinlichkeit zur fehlerhaften Ablehnung der Nullhypothese von $100\%$.
+Insgesamt war bei fünf weiteren Features ($temp.10, soilc0, soiln0, snh40$ und $ rootc0$) der p-value stets unter dem Signifikanzniveau.
 \\
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{fig/simul/kernel.pdf}
 	\caption{\bf{Approximierte Dichtefunktionen der F-Werte.} 
-		Gezeigt ist die Kerneldichtefunktion der F-Werte der Simulationen und die berechnete F-Dichtefunktion mit den Freiheitsgraden der ANOVA-Tabelle unter Berücksichtigung der Nullhypothese.
-		Der Unterschied der beiden Funktionen deutet auf fehlerhafte F-tests hin.
+		Gezeigt ist die Kerneldichtefunktion der F-Werte der Simulationen.
+		Die Multimodalität der Funktion deutet auf fehlerhaftes Ablehnen der Nullhypothesen hin.
 	}
 	\label{fig-simul-kernel}
 \end{figure}
@@ -57,9 +59,14 @@ Die Simulation möchte demnach das wahre Modell erweitern ($H_0$ wird abgelehnt)
 Dies führt zu Overfitting, da das Modell bereits als wahr angenommen wurde und demnach keine weiteren Features hinzugefügt werden sollten.
 
 \subsection{Diskussion}
+Das Fortführen des Variablenselektionsverfahrens führte zu vielen Ablehnungen der Nullhypothese, obwohl das Modell bereits als vollständig angenommen wurde.
+In Anbetracht der Datenlage allerdings lässt sich streiten, ob das Ausgangsmodell wirklich als "wahr" bezeichnet werden kann.
+Auf jedes Feature kommt maximal ein Datenpunkt.
+Damit kann man die Realität nicht abbilden und ein Erstellen eines "wahren" Modells erscheint sinnlos.
+Ist das wahre Modell nicht bekannt, lässt sich die Wahrscheinlichkeit der fälschlichen Ablehnung von $H_0$ ebenfalls nicht schätzen.
+Die Ergebnisse sind demnach mit großer Vorsicht zu genießen.
 
-\subsubsection{Mögliche Gründe}
-Dies kann mehrere Gründe haben:
+\subsubsection{Mögliche Gründe der Fehlentscheidungen}
 Gemessene Features müssen nicht zwangsläufig von der Bodenatmung statistisch abhängig sein.
 Je geringer die Korrelation dieser beiden Zufallsvariablen, desto höher ist die Wahrscheinlichkeit, dass es sich nur um Rauschen handelt.
 In diesem Fall sollte diese Variabel nicht zum Modell hinzugefügt werden.
@@ -72,7 +79,12 @@ Eine fehlerhafte Datenerhebung führt auch zu verfälschten Ergebnissen.
 Letztendlich kann der F-Test auch nur zufällig richtig sein.
 Ein geringer p-Value schließt keine Fehlentscheidungen aus; sie werden lediglich unwahrscheinlicher.
 
-\subsubsection{Auswirkungen der Fehlentscheidungen}
+\subsubsection{Auswirkungen der Designmatrix auf die Fehlentscheidungen}
+In der Monte Carlo-Simulation wurden 200 unterschiedliche Teilmengen des Datensatzes als Trainingsdaten verwendet.
+Die Designmatrix kann also in jeder Runde leicht anders ausfallen.
+In jeder Einzelsimulation jedoch war stets $Temp.10$ das Feature mit dem höchsten F-Wert.
+Die Wahl der Trainingsdaten führte zwar zu leicht unterschiedlichen Koeffizienten $\beta_i$; die Entscheidung des nächsten Features jedoch war stets die selbe.
+Die Messungen sind demnach statistisch untereinander unabhängig.
 
 \begin{figure}[htbp]
 	\centering

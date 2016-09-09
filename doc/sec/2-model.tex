@@ -1,11 +1,13 @@
 \section{Erstellung eines Modells zur Bodenatmung}
 \label{sec-model}
 
-Der Datensatz enthält sehr viele Features im Vergleich zur Anzahl an Messungen. Der Suchraum der Variablenselektion wäre viel zu groß.
+Der Datensatz enthält sehr viele Features im Vergleich zur Anzahl an Messungen.
+Der Suchraum der Variablenselektion wäre viel zu groß und muss demnach verkleinert werden.
+Außerdem ist eine Schätzung von so vielen Parametern mit vergleichsweise geringen Messungen auch statistisch zu ungenau.
 
 \subsubsection{Test auf Vorliegen einer Normalverteilung}
 
-Es werden nur normalverteilte (\it{Shapiro-Wilk}) und stark korrelierende (\it{Pearson}) Variablen in Betracht gezogen. Um \it{Pearson} als Korrelationskoeffizienten nutzen zu können, müssen die Messungen der Variablen normalverteilt sein. Um dies zu testen nutzen wir den \it{Shapiro-Wilk-Test}. Wenn die \it{p-Value} des \it{Shapiro-Wilk-Test} kleiner als $0.05$ ist, dann ist die Variable normalverteilt. Wir in Abbildung \ref{fig:shapiro} zu sehen ist, sind nur 14 der insgesamt 33 Variablen normalverteilt.
+Es werden nur normalverteilte (\it{Shapiro-Wilk}) und stark korrelierende (\it{Pearson}) Variablen in Betracht gezogen. Um \it{Pearson} als Korrelationskoeffizienten nutzen zu können, müssen die Messungen der Variablen normalverteilt sein. Um dies zu testen nutzen wir den \it{Shapiro-Wilk-Test}. Wenn der \it{p-Value} des \it{Shapiro-Wilk-Test} kleiner als $0.05$ ist, dann ist die Variable normalverteilt. Wie in Abbildung \ref{fig:shapiro} zu sehen ist, sind nur 14 der insgesamt 33 Variablen normalverteilt.
 
 \begin{figure}[ht]
 	\centering
@@ -26,20 +28,30 @@ Aus den normalverteilten Variablen werden die am stärksten korrelierenden Varia
 \end{figure}
 
 \begin{itemize}
-\tightlist
 \item
   \emph{lmoi} relative Feuchte der Streuschicht (litter moisture)
 \item
   \emph{temp15} Bodentemperatur in 15 cm Tiefe
 \item
   \emph{smoi} relative Bodenfeuchte (soil moisture)
-\item
-  \emph{soiln0} Stickstoffgehalt des Bodens in 0-5 cm Tiefe
 \end{itemize}
 
 \subsection{Transformationen}
 
-Transformationen bringen keine deutlichen Verbesserungen der Variablen. Für diese Analyse wurde ein Scatterplot genutzt (Abbildung im Anhang).
+Lineare Modelle erfordern lineare Korrelationen.
+Bei nicht linearen Korrelationen kann eine Linkfunktion als Transformation der Zufallsgröße verwendet werden, um die gewählte Messgröße zu linearisieren.
+Soe \it{et. al.} verwendeten eine derartige Transformation vor allem für die Temperatur, da die Reaktionsgeschwindigkeit einer Reaktion exponentiell und nicht linear in Abhänigkeit der Temperatur verläuft.
+Unsere Datenlage allerdings konnte die Notwendigkeit einer solchen Transformation nicht bestätigen (Vgl. Abbildung \ref{fig:temp}).
+Eine hohe \it{Pearson}-Korelation bestätigte den Verdacht.
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{fig/model/temp-vs-resp.pdf}
+	\caption{\bf{Bodenatmung in Abhänigkeit von der Temperatur.}
+		 Es ist keine nichtlineare Korrelation der beiden Größen ersichtlich. }
+	\label{fig:temp}
+\end{figure}
+Transformationen bringen keine deutlichen Verbesserungen der Variablen. 
+Für diese Analyse wurde außerdem ein Scatterplot genutzt (Abbildung im Anhang).
 
 \subsection{Variablenselektion}
 

@@ -80,8 +80,8 @@ fNominal <- df(xs,25,24)
 plot(freal, xlim=c(0,7), ylim=c(0,1.2),
      xlab = "F-Value",
      main="Kernel distribution of F values \n from models with different extra feature")
-points(xs, fNominal, col="red", type="lines") #F distribution
-legend("topright",c("Data","Calculated"), lwd=2, col=c("black","red"), bty = "n")
+#points(xs, fNominal, col="red", type="lines") #F distribution
+#legend("topright",c("Data","Calculated"), lwd=2, col=c("black","red"), bty = "n")
 
 #values of F and spse in run 1
 run1 <- simulRes[simulRes$run == 1,]
