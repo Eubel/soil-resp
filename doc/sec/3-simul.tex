@@ -1,9 +1,4 @@
 \section{Simulation}
-In Kapitel \ref{sec-model} wurde folgendes Modell ausgewählt:
-\begin{equation}
-	soil.res = \vec{\beta} * (1,lmoi,temp15,smoi)^T
-\end{equation}
-
 \subsection{Vorgehensweise}
 Die Daten wurden in 80\% zum Training und 20\% zum Testen aufgeteilt.
 Anschließend wurde das "wahre" Modell um jeweils ein weiteres Feature erweitert.
@@ -32,17 +27,19 @@ Um zu überprüfen, ob sich das Modell überhaupt verbessert hat, wurde die Diff
 	\label{fig-simul-f-spse}
 \end{figure}
 In Abbildung \ref{fig-simul-f-spse} sind die F-Werte und Fehler bei der Reproduktion von unabhängigen Testdaten gezeigt.
-Im Rahmen des Variablenselektionsverfahrens wird jeweils das Feature zum Modell hinzugenommen, welches um den größten F-Wert verfügt.
+Im Rahmen des Variablenselektionsverfahrens wird jeweils das Feature zum Modell hinzugenommen, welches den größten F-Wert besitzt.
 Im diesem Falle wäre das $litter.d$.
 Betrachtet man allerdings den erwarteten Reproduktionsfehler $\widehat{SPSE}$, so führt das Hinzunehmen der Variable $ph.soil5$ zum Modell mit minimalen Fehlern.
 Hier ist der F-Wert aber um $\approx 3,5$ geringer.
 Die Nullhypothese wird hier fälschlicherweise abgelehnt und stattdessen $litter.d$ zum Modell hinzugenommen.
-Auch kann es vorkommen, dass eine Zufallsvariable überwiegend Rauschen beinhaltet und sich das Modell dann durch hinzufügen ebendieser Variable lediglich verschlechtert (Vgl. Abb. \ref{fig-simul-delta-spse})
+Auch kann es vorkommen, dass eine Zufallsvariable überwiegend Rauschen beinhaltet und sich das Modell dann durch Hinzufügen ebendieser Variable lediglich verschlechtert (Vgl. Abb. \ref{fig-simul-delta-spse}, $\Delta \widehat{SPSE} > 0$)
 \\
 Nach der Monte-Carlo-Simulation war das Modell mit dem geringsten $\widehat{SPSE}$ stets das Modell mit den 9. höchsten F-Wert.
 Während der 200 Simulationen verblieb der Wert unverändert.
-Wenn man davon ausgeht, das das erstellte Modell wirklich "wahr" ist, so entspricht dies eine Wahrscheinlichkeit zur fehlerhaften Ablehnung der Nullhypothese von $100\%$.
+Wenn man davon ausgeht, das das erstellte Modell wirklich "`wahr"' ist, so entspricht dies eine Wahrscheinlichkeit zur fehlerhaften Ablehnung der Nullhypothese von $100\%$.
 Insgesamt war bei fünf weiteren Features ($temp.10, soilc0, soiln0, snh40$ und $ rootc0$) der p-value stets unter dem Signifikanzniveau.
+Hier schlägt das Variablenselektionsverfahren vor, Features einen vollständigen Modell hinzu zufügen.
+Unter Annahme der Vollständigkeit des Modells ist dies aber falsch.
 \\
 \begin{figure}[htbp]
 	\centering
@@ -71,7 +68,7 @@ Die Ergebnisse sind demnach mit großer Vorsicht zu genießen.
 Gemessene Features müssen nicht zwangsläufig von der Bodenatmung statistisch abhängig sein.
 Je geringer die Korrelation dieser beiden Zufallsvariablen, desto höher ist die Wahrscheinlichkeit, dass es sich nur um Rauschen handelt.
 In diesem Fall sollte diese Variable nicht zum Modell hinzugefügt werden.
-Zufälligerweise kann dies aber auch zu hohen F-Werten führen, welches zu fehlerhaften Entscheidungen bei den Hypothesentests führt.
+Zufälligerweise kann dies aber auch zu hohen F-Werten führen, welches zu fehlerhaften Entscheidungen bei den Hypothesentests führen kann.
 Ferner fordert der F-Test normalverteilte Variablen.
 Folgt eine Messgröße nicht dieser Verteilung, ist der Test nicht aussagekräftig.
 Auch eine nicht repräsentative Stichprobe fälscht das Ergebnis.
@@ -85,7 +82,7 @@ In der Monte Carlo-Simulation wurden 200 unterschiedliche Teilmengen des Datensa
 Die Designmatrix kann also in jeder Runde leicht anders ausfallen.
 In jeder Einzelsimulation jedoch war stets $Temp.10$ das Feature mit dem höchsten F-Wert.
 Die Wahl der Trainingsdaten führte zwar zu leicht unterschiedlichen Koeffizienten $\beta_i$; die Entscheidung des nächsten Features jedoch war stets die selbe.
-Die Messungen sind demnach statistisch untereinander unabhängig.
+Die Messungen sind demnach statistisch voneinander unabhängig.
 
 \begin{figure}[htbp]
 	\centering

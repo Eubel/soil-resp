@@ -3,16 +3,16 @@
 
 Der Datensatz enthält sehr viele Features im Vergleich zur Anzahl an Messungen.
 Der Suchraum der Variablenselektion wäre viel zu groß und muss demnach verkleinert werden.
-Außerdem ist eine Schätzung von so vielen Parametern mit vergleichsweise geringen Messungen auch statistisch zu ungenau.
+Außerdem ist eine Schätzung von so vielen Parametern mit vergleichsweise wenigen Messungen auch statistisch zu ungenau.
 
 \subsection{Test auf Vorliegen einer Normalverteilung}
 
-Es werden nur normalverteilte (\it{Shapiro-Wilk}) und stark korrelierende (\it{Pearson}) Variablen in Betracht gezogen. Um \it{Pearson} als Korrelationskoeffizienten nutzen zu können, müssen die Messungen der Variablen normalverteilt sein. Um dies zu testen nutzen wir den \it{Shapiro-Wilk-Test}. Wenn der \it{p-Value} des \it{Shapiro-Wilk-Test} kleiner als $0.05$ ist, dann ist die Variable normalverteilt. Wie in Abbildung \ref{fig:shapiro} zu sehen ist, sind nur 14 der insgesamt 33 Variablen normalverteilt.
+Es werden nur normalverteilte (\it{Shapiro-Wilk}) und stark korrelierende (\it{Pearson}) Variablen in Betracht gezogen. Um \it{Pearson} als Korrelationskoeffizienten nutzen zu können, müssen die Messungen der Variablen normalverteilt sein. Um dies zu testen nutzen wir den \it{Shapiro-Wilk-Test}. Wenn der \it{p-Value} des \it{Shapiro-Wilk-Tests} größer als das Signifikanzniveau $\alpha=0.05$ ist, dann ist die Variable normalverteilt. Wie in Abbildung \ref{fig:shapiro} zu sehen ist, sind nur 14 der insgesamt 33 Variablen normalverteilt.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{fig/model/normalverteilung-shapiro.png}
-	\caption{\bf{P-Value des Shapiro-Wilk-Test aller Variablen.}}
+	\caption{\bf{P-Value des Shapiro-Wilk-Tests aller Variablen.}}
 	\label{fig:shapiro}
 \end{figure}
 
@@ -57,9 +57,7 @@ Für diese Analyse wurde außerdem ein Scatterplot genutzt (Abbildung im Anhang)
 \subsection{Variablenselektion}
 
 Mit Hilfe des R-Pakets \emph{leaps} wird das Modell mit dem geringsten Wert des \emph{Bayesschem Informationskriteriums (BIC)} ausgewählt, welches das Kriterium der Modellqualität erfüllt.
-In Abbildung \ref{fig:bic} sieht man, dass alle Variablen außer \emph{soiln0} gewählt werden. 
-
-
+In Abbildung \ref{fig:bic} sieht man, dass ein Hinzufügen der Variable $soiln0$ den BIC-Wert nur erhöhen würde.
 
 \begin{figure}[ht]
 	\centering
@@ -69,10 +67,8 @@ In Abbildung \ref{fig:bic} sieht man, dass alle Variablen außer \emph{soiln0} g
 \end{figure}
 
 \subsection{Ergebnis}
-
-$$soil.res = \vec{\beta} * (1,lmoi,temp15,smoi)^T$$
-
-%Qualität des gewählten Modells
+Bezüglich der Voraussetzungen der Normalverteilung, der Korrelation und des BICs wurde folgendes Modell zur Beschreibung der Bodenatmung ausgewählt:
+$$soil.res = \vec{\beta} * (1,lmoi,temp15,smoi)^\text{T}$$
 
 \subsection{Umsetzung mit R}
 
