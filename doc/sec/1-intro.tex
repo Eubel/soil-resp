@@ -50,13 +50,19 @@ Hier wird ebenfalls ein lineares Korrelationsmaß benötigt.
 
 \subsubsection{Informationskriterien}
 
-Je mehr Variablen für ein Modell in Betracht gezogen werden, um so komplexer wird es. Meist wünscht man sich aber ein einfaches Modell, dass mit möglichst wenigen Variablen sehr gute Vorhersagen treffen kann. Mit verschiedenen Informationskriterien kann man nach Variablen mit der minimale Varianz der Residuen suchen. Das \emph{Bayessches Informationskriterium (BIC)}\footnotetext[1]{Schwarz-Bayes Criterion (SBC))} ist im Vergleich zu \emph{Akaikes Informationskriterium} abhängig von der Stichprobengröße.
+Je mehr Variablen für ein Modell in Betracht gezogen werden, um so komplexer wird es.
+Meist wünscht man sich aber ein einfaches Modell, dass mit möglichst wenigen Variablen sehr gute Vorhersagen treffen kann.
+Mit verschiedenen Informationskriterien kann man nach Variablen mit der minimale Varianz der Residuen suchen.
+Das \emph{Bayessches Informationskriterium (BIC)}\footnotetext[1]{Schwarz-Bayes Criterion (SBC))} ist im Vergleich zu \emph{Akaikes Informationskriterium} abhängig von der Stichprobengröße.
 
 $$\displaystyle AIC_{\ell }=-2\ell (\mathbf {\hat {\theta }} )+2k$$
 
 $$\displaystyle BIC_{\ell }=-2\ell (\mathbf {\hat {\theta }} )+\log(n)k$$
 
-Dies machen wir uns bei unseren Testdaten nützlich, da unsere Stichprobe recht klein ist. Zusätzlich betrachten wir noch das \emph{korrigierte Bestimmtheitsmaß  $\bar{R^2}$ (adjr2; engl. \it{adjusted r-squared})}. Es ist im Vergleich zum Bestimmtheitsmaß $R^2$ angepasst an die Anzahl der Variablen im Modell. Es steigt nur an, wenn die Variable das Modell stärker verbessert als der Zufall, ansonsten sinkt es.
+Dies machen wir uns bei unseren Testdaten nützlich, da unsere Stichprobe recht klein ist.
+Zusätzlich betrachten wir noch das \emph{korrigierte Bestimmtheitsmaß  $\bar{R^2}$ (adjr2; engl. \it{adjusted r-squared})}.
+Es ist im Vergleich zum Bestimmtheitsmaß $R^2$ angepasst an die Anzahl der Variablen im Modell.
+Es steigt nur an, wenn die Variable das Modell stärker verbessert als der Zufall, ansonsten sinkt es.
 
 $$\bar R^2 = 1- (1-R^2) \frac{n-1}{n-p-1} = R^2 - (1-R^2) \frac{p}{n-p-1}$$
 
@@ -88,3 +94,4 @@ Der Fehler $RSS$ wird so stark verringert, dass es auch eine Erhöhung der Freih
 \\
 Die R-Funktion \lstinline|anova(model1, model2)| führt derartige Tests durch.
 Ist der p-Value (in R \lstinline|F Pr(>F)|) kleiner als das Signifikanzniveau, so wird im Rahmen der Variablenselektion das erweiterte Modell favorisiert.
+
