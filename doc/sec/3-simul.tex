@@ -1,8 +1,8 @@
 \section{Simulation}
 \subsection{Vorgehensweise}
 Die Daten wurden in 80\% zum Training und 20\% zum Testen aufgeteilt.
-Anschließend wurde das "wahre" Modell um jeweils ein weiteres Feature erweitert.
-Das erweiterte Modell $soil.res = \vec{\beta} * (1,lmoi,temp15,smoi,x)^T$ wurde mittels ANOVA mit dem "wahren" Modell verglichen.
+Anschließend wurde das "`wahre"' Modell um jeweils ein weiteres Feature erweitert.
+Das erweiterte Modell $soil.res = \vec{\beta} * (1,lmoi,temp15,smoi,x)^\text{T}$ wurde mittels ANOVA mit dem "`wahren"' Modell verglichen.
 In R berechnete die Funktion \lstinline|anova(realModel, nxtModel)$F[2]| den jeweiligen F-Wert.
 Wichtig hierbei war, dass beide Modelle auf den selben Trainingsdaten erstellt wurden und es sich um \it{verschachtelte} Featuremengen handelte.
 Die Partitionierung der Daten erfolgte sowohl mittels Kreuzvalidierung als auch mit einem Monte-Carlo-Ansatz.
@@ -19,7 +19,7 @@ Um zu überprüfen, ob sich das Modell überhaupt verbessert hat, wurde die Diff
 	\includegraphics[width=\textwidth]{fig/simul/simul-f.pdf}
 	\includegraphics[width=\textwidth]{fig/simul/simul-spse.pdf}
 	\caption{\bf{Beispiel einer Simulation.} 
-		Das in Kapitel \ref{sec-model} erstellte "wahre" Modell wurde um jeweils ein Feature erweitert.
+		Das in Kapitel \ref{sec-model} erstellte "`wahre"' Modell wurde um jeweils ein Feature erweitert.
 		Dargestellt ist der Fehler \bf{SPSE} und der zugehörige \bf{F-Wert} in Abhänigkeit von der gewählten zusätzlichen Variable in der ersten Runde der Kreuzvalidierung.
 		Im Verlaufe der Variablenselektion wird das Modell mit dem höchsten F-Wert gewählt.
 		Dies ist allerdings selten das Modell mit dem geringsten Fehler.
@@ -51,16 +51,16 @@ Unter Annahme der Vollständigkeit des Modells ist dies aber falsch.
 	\label{fig-simul-kernel}
 \end{figure}
 
-Unter der Nullhypothese (Erweitertes Modell ist nicht besser als das "wahre" Modell) ist die F-Statistik eine F-verteilte Zufallsvariable.
+Unter der Nullhypothese (Erweitertes Modell ist nicht besser als das "`wahre"' Modell) ist die F-Statistik eine F-verteilte Zufallsvariable.
 Die Dichtefunktion der Daten aus der Kreuzüberprüfung (approx. durch Kernel-Desity) ist nach Abb. \ref{fig-simul-kernel} mitunter stark abweichend.
 Die Simulation möchte demnach das wahre Modell erweitern ($H_0$ wird abgelehnt).
 Dies führt zu Overfitting, da das Modell bereits als wahr angenommen wurde und demnach keine weiteren Features hinzugefügt werden sollten.
 
 \subsection{Diskussion}
 Das Fortführen des Variablenselektionsverfahrens führte zu vielen Ablehnungen der Nullhypothese, obwohl das Modell bereits als vollständig angenommen wurde.
-In Anbetracht der Datenlage allerdings lässt sich streiten, ob das Ausgangsmodell wirklich als "wahr" bezeichnet werden kann.
+In Anbetracht der Datenlage allerdings lässt sich streiten, ob das Ausgangsmodell wirklich als "`wahr"' bezeichnet werden kann.
 Auf jedes Feature kommt maximal ein Datenpunkt.
-Damit kann man die Realität nicht abbilden und ein Erstellen eines "wahren" Modells erscheint sinnlos.
+Damit kann man die Realität nicht abbilden und ein Erstellen eines "`wahren"' Modells erscheint sinnlos.
 Ist das wahre Modell nicht bekannt, lässt sich die Wahrscheinlichkeit der fälschlichen Ablehnung von $H_0$ ebenfalls nicht schätzen.
 Die Ergebnisse sind demnach mit großer Vorsicht zu genießen.
 
