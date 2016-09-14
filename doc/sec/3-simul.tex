@@ -40,6 +40,16 @@ Wenn man davon ausgeht, das das erstellte Modell wirklich "`wahr"' ist, so entsp
 Insgesamt war bei fünf weiteren Features ($temp.10, soilc0, soiln0, snh40$ und $ rootc0$) der p-value stets unter dem Signifikanzniveau.
 Hier schlägt das Variablenselektionsverfahren vor, Features einen vollständigen Modell hinzu zufügen.
 Unter Annahme der Vollständigkeit des Modells ist dies aber falsch.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{fig/simul/delta-spse.pdf}
+	\caption{\bf{Verbesserung der Modelle.} 
+		Dargestellt ist die Differenz $\Delta \widehat{SPSE}$ aus dem „wahren“ und dem erweiterten Modell.
+		Positive Werte deuten darauf hin, dass die hinzugefügte Variable dem Modell lediglich Rauschen beifügt.
+	}
+	\label{fig-simul-delta-spse}
+\end{figure}
 \\
 \begin{figure}[htbp]
 	\centering
@@ -84,12 +94,4 @@ In jeder Einzelsimulation jedoch war stets $Temp.10$ das Feature mit dem höchst
 Die Wahl der Trainingsdaten führte zwar zu leicht unterschiedlichen Koeffizienten $\beta_i$; die Entscheidung des nächsten Features jedoch war stets die selbe.
 Die Messungen sind demnach statistisch voneinander unabhängig.
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{fig/simul/delta-spse.pdf}
-	\caption{\bf{Verbesserung der Modelle.} 
-		Dargestellt ist die Differenz $\Delta \widehat{SPSE}$ aus dem „wahren“ und dem erweiterten Modell.
-		Positive Werte deuten darauf hin, dass die hinzugefügte Variable dem Modell lediglich Rauschen beifügt.
-	}
-	\label{fig-simul-delta-spse}
-\end{figure}
+
