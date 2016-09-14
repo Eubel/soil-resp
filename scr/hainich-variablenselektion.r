@@ -1,5 +1,8 @@
 hainich <- read.csv("hainich.csv", sep = ";", dec = ".")
 
+hainich.ordered <- hainich$soil.res[order(hainich$soil.res, decreasing = T)]
+boxplot(hainich.ordered)
+boxplot(hainich[,-18], las=2)
 # Correlation mit Pearson
 hainich.pear <- abs(cor(hainich))["soil.res",-1]
 hainich.pear.ordered <- hainich.pear[order(hainich.pear, decreasing = T)]
