@@ -20,7 +20,7 @@ Um zu überprüfen, ob sich das Modell überhaupt verbessert hat, wurde die Diff
 	\includegraphics[width=\textwidth]{fig/simul/simul-spse.pdf}
 	\caption{\bf{Beispiel einer Simulation.} 
 		Das in Kapitel \ref{sec-model} erstellte "`wahre"' Modell wurde um jeweils ein Feature erweitert.
-		Dargestellt ist der Fehler \bf{SPSE} und der zugehörige \bf{F-Wert} in Abhänigkeit von der gewählten zusätzlichen Variable in der ersten Runde der Kreuzvalidierung.
+		Dargestellt ist der Fehler \bf{SPSE} und der zugehörige \bf{F-Wert} in Abhängigkeit von der gewählten zusätzlichen Variable in der ersten Runde der Kreuzvalidierung.
 		Im Verlaufe der Variablenselektion wird das Modell mit dem höchsten F-Wert gewählt.
 		Dies ist allerdings selten das Modell mit dem geringsten Fehler.
 	}
@@ -41,7 +41,7 @@ Insgesamt war bei fünf weiteren Features ($temp.10, soilc0, soiln0, snh40$ und 
 Hier schlägt das Variablenselektionsverfahren vor, Features einen vollständigen Modell hinzu zufügen.
 Unter Annahme der Vollständigkeit des Modells ist dies aber falsch.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\includegraphics[width=\textwidth]{fig/simul/delta-spse.pdf}
 	\caption{\bf{Verbesserung der Modelle.} 
@@ -62,7 +62,7 @@ Unter Annahme der Vollständigkeit des Modells ist dies aber falsch.
 \end{figure}
 
 Unter der Nullhypothese (Erweitertes Modell ist nicht besser als das "`wahre"' Modell) ist die F-Statistik eine F-verteilte Zufallsvariable.
-Die Dichtefunktion der Daten aus der Kreuzüberprüfung (approx. durch Kernel-Desity) ist nach Abb. \ref{fig-simul-kernel} mitunter stark abweichend.
+Die Dichtefunktion der Daten aus der Kreuzüberprüfung (approximiert durch Kernel-Desity) ist nach Abb. \ref{fig-simul-kernel} mitunter stark abweichend.
 Die Simulation möchte demnach das wahre Modell erweitern ($H_0$ wird abgelehnt).
 Dies führt zu Overfitting, da das Modell bereits als wahr angenommen wurde und demnach keine weiteren Features hinzugefügt werden sollten.
 
